@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Of Many Hues - STD 6 UNIT 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&family=Anek+Malayalam:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#4CAF50;--secondary:#FF7043;--accent:#FFC107;--blue:#2196F3;--purple:#9C27B0;--teal:#009688;--shadow:0 8px 20px rgba(0,0,0,.15);--radius:20px}
+*{box-sizing:border-box;user-select:none;-webkit-user-select:none;margin:0;padding:0}
+body{background:linear-gradient(180deg,#E8F5E9 0%,#FFF8E1 40%,#fff 70%);min-height:100vh;overflow-x:hidden;color:#263238;font-family:'Quicksand','Segoe UI',sans-serif}
+h1,h2,h3{font-family:'Baloo 2',cursive}
+.ml{font-family:'Anek Malayalam',sans-serif;font-weight:600}
+#app{position:relative;z-index:1;max-width:1050px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column;padding:15px}
+header{background:rgba(255,255,255,.97);padding:12px 20px;border-radius:var(--radius);box-shadow:var(--shadow);display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;flex-wrap:wrap;gap:10px}
+.logo-area{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-area h1{font-size:1.25rem;color:var(--primary);font-weight:800}
+.logo-area .sub{font-size:.85rem;color:#0277BD}
+.logo-area span{font-size:.78rem;background:var(--accent);color:#333;padding:3px 10px;border-radius:12px;font-weight:bold}
+.stats-bar{display:flex;align-items:center;gap:15px;background:#FFF9C4;padding:8px 16px;border-radius:30px;border:2px solid #FBC02D;font-weight:bold;font-size:1.05rem}
+.stat-item{display:flex;align-items:center;gap:5px}
+.controls{display:flex;gap:8px}
+.icon-btn{background:#fff;border:2px solid #E0E0E0;width:40px;height:40px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:1.1rem;cursor:pointer;box-shadow:0 3px 6px rgba(0,0,0,.1)}
+.icon-btn:hover{transform:scale(1.1)}
+.progress-container{width:100%;background:rgba(255,255,255,.6);height:10px;border-radius:10px;overflow:hidden;margin-bottom:15px;box-shadow:inset 0 2px 4px rgba(0,0,0,.1)}
+.progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#4CAF50,#8BC34A);transition:width .4s ease}
+.screen{display:none;flex-direction:column;align-items:center;width:100%;flex:1;animation:fadeIn .3s ease-in-out}
+.screen.active{display:flex}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.home-card{background:rgba(255,255,255,.95);border-radius:25px;padding:30px 20px;text-align:center;box-shadow:var(--shadow);width:100%;max-width:720px;margin:auto;border:4px solid #fff}
+.main-title{color:#2E7D32;font-size:1.9rem;margin-bottom:6px}
+.sub-title{color:#D84315;font-size:1.2rem;margin-bottom:8px;font-weight:700}
+.quote-tag{background:#FFF3E0;color:#BF360C;display:inline-block;padding:8px 20px;border-radius:16px;font-size:.95rem;margin-bottom:14px;font-style:italic;border:2px dashed #FFB74D}
+.author-tag{background:#E1F5FE;color:#0277BD;display:inline-block;padding:4px 16px;border-radius:20px;font-size:.9rem;margin-bottom:22px;font-weight:bold}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;width:100%}
+.btn-menu{padding:16px 18px;border:none;border-radius:20px;font-size:1.02rem;font-weight:bold;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 0 rgba(0,0,0,.2);text-shadow:1px 1px 2px rgba(0,0,0,.3);transition:all .2s;font-family:'Baloo 2',cursive}
+.btn-menu:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.2)}
+.b1{background:linear-gradient(135deg,#4CAF50,#43A047)}.b2{background:linear-gradient(135deg,#FF7043,#F4511E)}
+.b3{background:linear-gradient(135deg,#2196F3,#1E88E5)}.b4{background:linear-gradient(135deg,#9C27B0,#8E24AA)}
+.b5{background:linear-gradient(135deg,#009688,#00897B)}.b6{background:linear-gradient(135deg,#FF9800,#FB8C00)}
+.b7{background:linear-gradient(135deg,#795548,#6D4C41)}.b8{background:linear-gradient(135deg,#607D8B,#546E7A)}
+.b9{background:linear-gradient(135deg,#3F51B5,#3949AB)}.b10{background:linear-gradient(135deg,#EC407A,#D81B60)}
+.b11{background:linear-gradient(135deg,#8D6E63,#6D4C41)}.b12{background:linear-gradient(135deg,#26C6DA,#00ACC1)}
+.b13{background:linear-gradient(135deg,#7CB342,#558B2F)}.b14{background:linear-gradient(135deg,#FFB300,#FF8F00)}
+.b15{background:linear-gradient(135deg,#5C6BC0,#3949AB)}.b16{background:linear-gradient(135deg,#EF5350,#C62828)}
+.b17{background:linear-gradient(135deg,#AB47BC,#8E24AA)}.b18{background:linear-gradient(135deg,#26A69A,#00897B)}
+.lesson-pick{background:#fff;border:3px solid #A5D6A7;border-radius:18px;padding:18px 22px;margin-bottom:14px;cursor:pointer;display:flex;align-items:center;gap:14px;box-shadow:0 4px 12px rgba(0,0,0,.08);transition:all .2s;width:100%;max-width:520px}
+.lesson-pick:hover{border-color:#4CAF50;background:#E8F5E9;transform:translateY(-3px)}
+.lesson-pick .lp-emoji{font-size:2.4rem}
+.lesson-pick .lp-title{font-size:1.2rem;font-weight:800;color:#2E7D32;font-family:'Baloo 2',cursive}
+.lesson-pick .lp-sub{font-size:.9rem;color:#546E7A}
+.section-header{width:100%;display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;background:#fff;padding:12px 20px;border-radius:15px;box-shadow:var(--shadow);flex-wrap:wrap;gap:10px}
+.section-title{font-size:1.15rem;color:var(--primary);font-weight:800;display:flex;align-items:center;gap:8px;font-family:'Baloo 2',cursive}
+.back-btn{background:linear-gradient(135deg,#607D8B,#546E7A);color:#fff;border:none;padding:8px 20px;border-radius:20px;font-weight:bold;cursor:pointer}
+.content-box{background:rgba(255,255,255,.97);border-radius:22px;padding:24px;box-shadow:var(--shadow);width:100%;max-width:850px;margin:0 auto 20px;border:3px solid #fff}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px;width:100%;padding-bottom:20px}
+.word-card{background:#fff;border-radius:20px;padding:14px;text-align:center;box-shadow:var(--shadow);border:3px solid #fff;transition:all .3s;cursor:pointer;display:flex;flex-direction:column;align-items:center}
+.word-card:hover{transform:translateY(-6px);border-color:var(--accent)}
+.word-card.playing{animation:pulseCard .6s infinite alternate;border-color:var(--primary);background:#F1F8E9}
+@keyframes pulseCard{from{transform:scale(1)}to{transform:scale(1.05)}}
+.card-emoji{font-size:3.4rem;margin-bottom:8px}
+.word-eng{font-size:1.35rem;margin-bottom:6px;font-weight:800;color:#2E7D32;font-family:'Baloo 2',cursive}
+.word-meaning{font-size:.9rem;color:#555;margin-bottom:8px}
+.replay-btn{background:#E8EAF6;color:#3F51B5;border:none;padding:5px 12px;border-radius:15px;font-size:.85rem;font-weight:bold;cursor:pointer}
+.story-title-wrap{text-align:center;width:100%;margin-bottom:18px}
+.story-title{text-align:center;font-size:1.5rem;margin-bottom:16px;background:linear-gradient(90deg,#A5D6A7,#66BB6A);display:inline-block;padding:8px 30px;border-radius:30px;color:#1B5E20!important;font-family:'Baloo 2',cursive}
+.story-para{background:#E8F5E9;border-left:5px solid var(--primary);padding:14px 18px;border-radius:14px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.story-para p{font-size:1.15rem;line-height:1.9;flex:1;min-width:250px}
+.mini-play{background:var(--blue);color:#fff;border:none;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:1.1rem;flex-shrink:0}
+.read-all-btn{background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff;border:none;padding:12px 30px;border-radius:25px;font-size:1.05rem;font-weight:bold;cursor:pointer;margin-bottom:18px;box-shadow:0 4px 10px rgba(76,175,80,.4);font-family:'Baloo 2',cursive}
+.activity-block{background:#FFF8E1;border:2px solid #FFE082;border-radius:18px;padding:20px;margin-bottom:22px;width:100%}
+.activity-heading{color:#E65100;font-size:1.15rem;margin-bottom:14px;font-weight:800;font-family:'Baloo 2',cursive}
+.activity-sub{font-size:.95rem;color:#455A64;margin-bottom:10px}
+.activity-line{font-size:1.1rem;line-height:2;margin-bottom:10px}
+.fillbox{border:2px solid #90A4AE;border-radius:10px;padding:6px 10px;font-size:1rem;font-family:'Quicksand',sans-serif;font-weight:700;color:#2E7D32;min-width:110px;text-align:center;background:#fff}
+select.fillbox{cursor:pointer}
+.check-btn{background:var(--primary);color:#fff;border:none;padding:8px 22px;border-radius:20px;font-weight:bold;cursor:pointer;margin-top:8px;font-family:'Baloo 2',cursive}
+.word-bank{background:#E1F5FE;border-radius:12px;padding:10px 16px;margin-bottom:14px;font-size:1rem;display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.word-bank span{background:#fff;padding:5px 14px;border-radius:14px;border:2px solid #4FC3F7}
+.result-msg{font-weight:bold;margin-top:8px;font-size:1.02rem}
+.model-answer-box{background:#F3E5F5;border:2px solid #CE93D8;border-radius:14px;padding:14px 18px;margin-top:10px;font-size:1.05rem;line-height:1.9;display:none}
+.reveal-model-btn{background:var(--purple);color:#fff;border:none;padding:8px 20px;border-radius:18px;font-size:.9rem;cursor:pointer;margin-top:6px;font-family:'Baloo 2',cursive;font-weight:bold}
+.write-box{width:100%;min-height:80px;border:2px dashed #90A4AE;border-radius:12px;padding:10px 14px;font-size:1rem;font-family:'Quicksand',sans-serif;margin-bottom:10px;resize:vertical}
+.diary-area{width:100%;min-height:110px;border:2px dashed #90A4AE;border-radius:12px;padding:12px 16px;font-size:1.05rem;font-family:'Quicksand',sans-serif;margin-bottom:10px;resize:vertical}
+.game-box{background:rgba(255,255,255,.95);border-radius:25px;padding:25px;box-shadow:var(--shadow);width:100%;max-width:750px;margin:0 auto;display:flex;flex-direction:column;align-items:center;border:4px solid #fff}
+.game-instruction{font-size:1.05rem;color:#37474F;margin-bottom:20px;text-align:center;background:#E0F2F1;padding:8px 20px;border-radius:20px;font-weight:bold;font-family:'Baloo 2',cursive}
+.g1-image-box{width:170px;height:170px;background:#F5F5F5;border-radius:20px;display:flex;justify-content:center;align-items:center;margin-bottom:22px;border:3px solid #E0E0E0;padding:10px;font-size:5rem}
+.options-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;width:100%;max-width:480px}
+.img-opt{font-size:3rem!important;min-height:100px}
+.meaning-box{font-size:1.4rem;font-weight:800;color:#2E7D32;background:#E8F5E9;padding:16px 30px;border-radius:20px;margin-bottom:22px;border:2px dashed #4CAF50;text-align:center}
+.listen-btn-big{background:linear-gradient(135deg,#3F51B5,#303F9F);color:#fff;border:none;width:96px;height:96px;border-radius:50%;font-size:2.6rem;cursor:pointer;margin-bottom:22px;box-shadow:0 6px 0 #1A237E}
+.listen-btn-big:active{transform:translateY(4px);box-shadow:0 2px 0 #1A237E}
+.option-btn{background:#fff;border:3px solid #81D4FA;padding:14px;border-radius:18px;font-size:1.3rem;font-weight:bold;color:#0277BD!important;cursor:pointer;box-shadow:0 4px 0 #4FC3F7;font-family:'Baloo 2',cursive}
+.option-btn:hover{background:#E1F5FE}
+.option-btn.correct{background:#C8E6C9!important;border-color:#4CAF50!important;color:#2E7D32!important;box-shadow:0 4px 0 #388E3C!important}
+.option-btn.wrong{background:#FFCDD2!important;border-color:#F44336!important;color:#C62828!important;box-shadow:0 4px 0 #D32F2F!important}
+.match-container{display:flex;justify-content:space-between;width:100%;gap:18px;margin-bottom:18px}
+.match-column{display:flex;flex-direction:column;gap:14px;flex:1}
+.match-item{background:#fff;border:3px solid #CFD8DC;border-radius:15px;padding:10px;display:flex;align-items:center;justify-content:center;min-height:78px;cursor:pointer}
+.match-item:hover{border-color:var(--blue);background:#E3F2FD}
+.match-item.selected{border-color:var(--accent);background:#FFF8E1}
+.match-item.matched{border-color:var(--primary);background:#E8F5E9;opacity:.6;pointer-events:none}
+.match-item.wrong{border-color:#F44336!important;background:#FFCDD2!important}
+.match-item .text-thumb{font-size:1.15rem;font-weight:bold;font-family:'Baloo 2',cursive;text-align:center}
+.missing-word-display{font-size:2rem;font-weight:bold;color:#2E7D32!important;background:#E3F2FD;padding:14px 36px;border-radius:20px;margin-bottom:22px;border:2px dashed #2196F3;font-family:'Baloo 2',cursive;letter-spacing:2px}
+.letters-options{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.letter-btn{background:#fff;border:3px solid #BA68C8;width:64px;height:64px;border-radius:50%;font-size:1.7rem;font-weight:bold;color:#6A1B9A!important;display:flex;justify-content:center;align-items:center;cursor:pointer;box-shadow:0 5px 0 #9C27B0;font-family:'Baloo 2',cursive}
+.target-pic{font-size:5rem;margin-bottom:14px;text-align:center}
+.drop-slots{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;justify-content:center}
+.letter-slot{width:52px;height:52px;border:3px dashed #B0BEC5;background:#ECEFF1;border-radius:14px;display:flex;justify-content:center;align-items:center;font-size:1.6rem;font-weight:bold;color:#2E7D32;font-family:'Baloo 2',cursive}
+.scrambled-letters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.tile-btn{width:50px;height:50px;background:#FFE082;border:2px solid #FFB300;border-radius:12px;font-size:1.5rem;font-weight:bold;color:#E65100!important;display:flex;justify-content:center;align-items:center;cursor:pointer;box-shadow:0 4px 0 #FFA000;font-family:'Baloo 2',cursive}
+.quiz-q{background:#fff;border-radius:16px;padding:16px 20px;margin-bottom:16px;box-shadow:0 3px 10px rgba(0,0,0,.08);border-left:5px solid var(--blue)}
+.quiz-q .qtext{font-size:1.1rem;margin-bottom:12px;font-weight:bold}
+.quiz-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.quiz-opt{background:#F5F5F5;border:2px solid #E0E0E0;border-radius:12px;padding:10px;cursor:pointer;text-align:center;font-size:1rem}
+.quiz-opt.picked{border-color:var(--blue);background:#E3F2FD}
+.quiz-opt.correct-ans{border-color:#4CAF50;background:#C8E6C9}
+.quiz-opt.wrong-ans{border-color:#F44336;background:#FFCDD2}
+.submit-quiz-btn{background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff;border:none;padding:14px 40px;border-radius:25px;font-size:1.1rem;font-weight:bold;cursor:pointer;margin-top:10px;box-shadow:0 4px 10px rgba(76,175,80,.4);font-family:'Baloo 2',cursive}
+.quiz-score-box{background:#FFF9C4;border:2px solid #FBC02D;border-radius:18px;padding:18px;text-align:center;font-size:1.2rem;font-weight:bold;margin-bottom:18px}
+table.vocab-table{width:100%;border-collapse:collapse}
+.vocab-table th{background:var(--primary);color:#fff;padding:10px;font-size:.95rem;font-family:'Baloo 2',cursive}
+.vocab-table td{padding:10px;border-bottom:1px solid #eee;font-size:1.05rem;text-align:center}
+.vocab-table tr:nth-child(even){background:#FAFAFA}
+.vocab-emoji{font-size:1.6rem}
+.modal-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,.7);z-index:100;display:none;justify-content:center;align-items:center;padding:20px}
+.modal-overlay.active{display:flex}
+.reward-card{background:#fff;border-radius:30px;padding:30px;text-align:center;max-width:480px;width:100%;box-shadow:0 20px 40px rgba(0,0,0,.3);border:5px solid #FFD54F}
+.reward-icon{font-size:3.6rem;margin-bottom:10px}
+.reward-title{color:#2E7D32;font-size:1.9rem;margin-bottom:8px}
+.reward-subtitle{color:#E65100;font-size:1.1rem;margin-bottom:18px}
+.primary-action-btn{background:linear-gradient(135deg,#4CAF50,#2E7D32);color:#fff;border:none;padding:12px 28px;border-radius:25px;font-size:1.05rem;font-weight:bold;cursor:pointer;font-family:'Baloo 2',cursive}
+.instructions-list{text-align:left;line-height:1.9;font-size:1rem;background:#F5F5F5;padding:20px;border-radius:15px;width:100%}
+.instructions-list li{margin-bottom:8px}
+.qa-line{background:#F1F8E9;border-radius:12px;padding:10px 16px;margin-bottom:10px}
+.qa-line .q{font-weight:bold;color:#2E7D32!important}
+.qa-line .a{display:none;color:#BF360C!important;margin-top:6px}
+.qa-line .a.show{display:block}
+.reveal-btn{background:var(--purple);color:#fff;border:none;padding:6px 16px;border-radius:14px;font-size:.85rem;cursor:pointer;margin-top:6px;font-family:'Baloo 2',cursive}
+.qp-section{background:#E8F5E9;border:2px solid #81C784;border-radius:16px;padding:18px;margin-bottom:18px}
+.qp-heading{color:#2E7D32;font-size:1.1rem;font-weight:800;margin-bottom:12px;border-bottom:2px dashed #81C784;padding-bottom:6px;font-family:'Baloo 2',cursive}
+.qp-q{background:#fff;border-radius:12px;padding:12px 16px;margin-bottom:12px;border-left:4px solid var(--teal);font-size:1.02rem;line-height:1.7}
+.qp-q .qnum{font-weight:bold;color:var(--teal)}
+.bio-card{background:#E8F5E9;border-radius:16px;padding:16px;margin-bottom:14px;border:2px solid #A5D6A7}
+.bio-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed #C8E6C9;flex-wrap:wrap}
+.bio-label{font-weight:bold;color:#2E7D32;min-width:150px}
+.bio-photo{font-size:3.4rem;text-align:center;margin-bottom:10px}
+.seq-item{background:#fff;border:2px solid #CFD8DC;border-radius:12px;padding:10px 14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:10px}
+.seq-item.selected{border-color:var(--accent);background:#FFF8E1}
+.seq-item.correct{border-color:#4CAF50;background:#E8F5E9}
+.seq-num{background:var(--blue);color:#fff;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold}
+.progress-row{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:12px;padding:10px 16px;margin-bottom:10px;border:2px solid #E0E0E0}
+.progress-row.done{border-color:#4CAF50;background:#E8F5E9}
+.progress-big-bar{width:100%;height:22px;background:#ECEFF1;border-radius:12px;overflow:hidden;margin-bottom:18px;border:2px solid #CFD8DC}
+.progress-big-fill{height:100%;background:linear-gradient(90deg,#4CAF50,#8BC34A);text-align:center;color:#fff;font-weight:800;font-size:.85rem;line-height:22px;transition:width .5s ease}
+.diary-page{background:#FFFDE7;border:2px dashed #FBC02D;border-radius:14px;padding:16px;margin-bottom:12px}
+.letter-page{background:#E3F2FD;border:2px dashed #64B5F6;border-radius:14px;padding:16px;margin-bottom:12px}
+.letter-box{background:#E3F2FD;border:2px dashed #64B5F6;border-radius:14px;padding:16px;margin-bottom:12px}
+.poster-box{background:linear-gradient(135deg,#E8F5E9,#C8E6C9);border:3px solid #81C784;border-radius:16px;padding:18px;text-align:center;margin-bottom:14px}
+.script-line{background:#fff;border-radius:10px;padding:8px 14px;margin-bottom:8px;border-left:4px solid #7E57C2}
+.script-line b{color:#5E35B1}
+.choose-wrap{display:flex;flex-direction:column;align-items:center;width:100%;max-width:560px;margin:0 auto}
+.unit-qp-paper{background:#fff;border:2px solid #333;border-radius:8px;padding:28px 32px;font-family:'Times New Roman',Times,serif;color:#111;line-height:1.6}
+.unit-qp-paper .qp-school{text-align:center;font-size:1.05rem;font-weight:bold;margin-bottom:4px}
+.unit-qp-paper .qp-title{text-align:center;font-size:1.35rem;font-weight:bold;margin:8px 0 4px;text-decoration:underline}
+.unit-qp-paper .qp-meta{display:flex;justify-content:space-between;flex-wrap:wrap;font-size:.95rem;margin:12px 0 18px;border-bottom:2px solid #333;padding-bottom:10px}
+.unit-qp-paper .qp-act{margin-bottom:22px}
+.unit-qp-paper .qp-act-h{font-weight:bold;font-size:1.05rem;margin-bottom:8px;border-left:4px solid #2E7D32;padding-left:10px}
+.unit-qp-paper .qp-act p,.unit-qp-paper .qp-act li{font-size:1rem;margin-bottom:6px}
+.unit-qp-paper .qp-lines{border-bottom:1px dotted #999;height:22px;margin:4px 0}
+.unit-qp-paper .qp-footer{text-align:center;margin-top:24px;font-size:.9rem;border-top:1px solid #999;padding-top:10px}
+@media print{
+header,.progress-container,.section-header,.controls,.btn-menu,.home-card .menu-grid,.listen-btn-big,.reveal-model-btn,.reveal-btn,.check-btn,.submit-quiz-btn,.replay-btn,.mini-play,.read-all-btn,.no-print{display:none!important}
+body{background:#fff!important}
+.content-box{box-shadow:none;border:none;max-width:100%!important;padding:0!important}
+.model-answer-box{display:block!important}
+.unit-qp-paper{border:none;padding:0;box-shadow:none}
+#unitQPScreen.screen{display:flex!important}
+#unitQPScreen .section-header{display:none!important}
+}
+@media (max-width:600px){.main-title{font-size:1.4rem}.sub-title{font-size:1rem}.options-grid{grid-template-columns:1fr}.match-container{flex-direction:column}.quiz-opts{grid-template-columns:1fr}.story-para p{font-size:1rem}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+/* ============================================================
+   AUDIO ENGINE — works fully INSIDE an app / webview.
+   No external network calls (no Google Translate TTS, no
+   pre-baked base64 files). Uses only:
+     1) Web Audio API  -> short game sound effects (offline)
+     2) SpeechSynthesis -> reads every sentence of the lessons
+        using the device / browser's own built-in voice.
+   This guarantees "Read the Lesson" audio always works even
+   when the app has no internet access.
+   ============================================================ */
+let audioCtx=null,chosenVoice=null,speakGen=0;
+let state={score:0,lives:5,stars:0,audioEnabled:true,currentSection:null,currentLesson:null,lastChooseSection:null,visited:{},quizSubmitted:false};
+
+function initAudio(){if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}}
+function playSound(type){if(!state.audioEnabled)return;initAudio();if(!audioCtx)return;const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.connect(gain);gain.connect(audioCtx.destination);const now=audioCtx.currentTime;if(type==='correct'){osc.type='sine';osc.frequency.setValueAtTime(523.25,now);osc.frequency.exponentialRampToValueAtTime(783.99,now+.3);gain.gain.setValueAtTime(.3,now);gain.gain.exponentialRampToValueAtTime(.01,now+.4);osc.start(now);osc.stop(now+.4)}else if(type==='wrong'){osc.type='sawtooth';osc.frequency.setValueAtTime(220,now);osc.frequency.linearRampToValueAtTime(130,now+.3);gain.gain.setValueAtTime(.3,now);gain.gain.exponentialRampToValueAtTime(.01,now+.35);osc.start(now);osc.stop(now+.35)}else if(type==='click'){osc.type='triangle';osc.frequency.setValueAtTime(400,now);gain.gain.setValueAtTime(.15,now);gain.gain.exponentialRampToValueAtTime(.01,now+.08);osc.start(now);osc.stop(now+.08)}else if(type==='fanfare'){[523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.setValueAtTime(f,now+i*.12);g.gain.setValueAtTime(.2,now+i*.12);g.gain.exponentialRampToValueAtTime(.01,now+i*.12+.3);o.start(now+i*.12);o.stop(now+i*.12+.3)})}}
+
+function pickVoice(){if(!('speechSynthesis'in window))return null;const voices=window.speechSynthesis.getVoices();if(!voices.length)return null;chosenVoice=voices.find(v=>v.lang==='en-IN')||voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang&&v.lang.startsWith('en'))||voices[0];return chosenVoice}
+
+function unlockTtsAudio(){try{initAudio();if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume()}catch(e){}try{if('speechSynthesis'in window){const u=new SpeechSynthesisUtterance('');u.volume=0;window.speechSynthesis.speak(u);window.speechSynthesis.cancel()}}catch(e){}}
+
+function stopSpeak(){speakGen++;if('speechSynthesis'in window){try{window.speechSynthesis.cancel()}catch(e){}}}
+
+/* speakText: reads text using the device's built-in speech engine only.
+   Works fully offline inside a packaged app / webview. */
+function speakText(text,onend){
+  const myGen=++speakGen;
+  const done=function(){if(myGen===speakGen&&onend)onend()};
+  if(!state.audioEnabled){done();return}
+  text=(text||'').toString().trim();
+  if(!text){done();return}
+  if(!('speechSynthesis'in window)){done();return}
+  try{
+    window.speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='en-IN';u.rate=.94;u.pitch=1.02;
+    const v=chosenVoice||pickVoice();if(v)u.voice=v;
+    u.onend=function(){if(myGen===speakGen&&onend)onend()};
+    u.onerror=function(){if(myGen===speakGen&&onend)onend()};
+    window.speechSynthesis.speak(u);
+  }catch(e){done()}
+}
+
+function toggleAudio(){state.audioEnabled=!state.audioEnabled;document.getElementById('btnAudioToggle').innerText=state.audioEnabled?'🔊':'🔇';if(!state.audioEnabled)stopSpeak()}
+function toggleFullscreen(){if(!document.fullscreenElement){document.documentElement.requestFullscreen().catch(()=>{})}else if(document.exitFullscreen){document.exitFullscreen()}}
+function printPage(){playSound('click');window.print()}
+function downloadPage(){playSound('click');try{const htmlContent="<!DOCTYPE html>\n"+document.documentElement.outerHTML;const blob=new Blob([htmlContent],{type:'text/html'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Of_Many_Hues_STD6_Unit1.html';document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(()=>URL.revokeObjectURL(url),3000)}catch(e){alert('Download not supported. Use Print.')}}
+function updateStatsUI(){document.getElementById('valScore').innerText=state.score;document.getElementById('valLives').innerText=state.lives;document.getElementById('valStars').innerText=state.stars;document.getElementById('progressBar').style.width=Math.min(100,state.score/2.5)+'%'}
+function showRewardModal(){playSound('fanfare');document.getElementById('rewardModal').classList.add('active')}
+function closeRewardModal(){document.getElementById('rewardModal').classList.remove('active');showScreen('homeScreen')}
+function revealModel(id,btn){const el=document.getElementById(id);const showing=el.style.display==='block';el.style.display=showing?'none':'block';if(!showing){state.score+=5;updateStatsUI();if(btn)btn.innerText='🙈 Hide Answer'}else if(btn){btn.innerText='💡 Show Model Answer'}}
+function genericCheck(selClass,resultId){const sels=document.querySelectorAll('.'+selClass);let correct=0;sels.forEach(s=>{if(s.value===s.dataset.ans){s.style.borderColor='#4CAF50';correct++}else{s.style.borderColor='#F44336'}});const r=document.getElementById(resultId);r.style.color=correct===sels.length?'#2E7D32':'#C62828';r.innerText=`Score: ${correct}/${sels.length}  ${correct===sels.length?'Excellent!':'Try again!'}`;if(correct===sels.length){state.score+=15;state.stars+=1;updateStatsUI();playSound('correct')}else{playSound('wrong')}}
+</script>
+</head>
+<body>
+<div id="app">
+<header>
+<div class="logo-area" onclick="showScreen('homeScreen')"><div style="font-size:1.8rem">🌈</div><div><h1>Of Many Hues</h1><span>STD 6 · UNIT 1</span><div class="sub ml">ആറാം ക്ലാസ് • യൂണിറ്റ് 1</div></div></div>
+<div class="stats-bar"><div class="stat-item">⭐ <span id="valScore">0</span></div><div class="stat-item">❤️ <span id="valLives">5</span></div><div class="stat-item">🏆 <span id="valStars">0</span></div></div>
+<div class="controls">
+<button class="icon-btn" id="btnAudioToggle" onclick="toggleAudio()" title="Sound">🔊</button>
+<button class="icon-btn" onclick="printPage()" title="Print">🖨️</button>
+<button class="icon-btn" onclick="downloadPage()" title="Download">⬇️</button>
+<button class="icon-btn" onclick="toggleFullscreen()" title="Full Screen">⛶</button>
+<button class="icon-btn" onclick="showScreen('homeScreen')" title="Home">🏠</button>
+</div>
+</header>
+<div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+
+<!-- HOME: no lesson names -->
+<div id="homeScreen" class="screen active">
+<div class="home-card">
+<h1 class="main-title">🌈 Of Many Hues</h1>
+<h2 class="sub-title">UNIT 1 : OF MANY HUES</h2>
+<div class="quote-tag">"In diversity there is beauty and there is strength." — Maya Angelou</div>
+<div class="author-tag ml">Prepared by: Smart Vidhya</div>
+<div class="menu-grid">
+<button class="btn-menu b1" onclick="openChoose('read')">📖 Read the Lessons</button>
+<button class="btn-menu b2" onclick="openChoose('learn')">🗂️ Learn Words</button>
+<button class="btn-menu b6" onclick="openChoose('activities')">📝 Activities</button>
+<button class="btn-menu b3" onclick="openChoose('games')">🎮 Games</button>
+<button class="btn-menu b4" onclick="openChoose('quiz')">❓ Quiz</button>
+<button class="btn-menu b10" onclick="showScreen('modelQPScreen')">📋 Model Question Paper</button>
+<button class="btn-menu b18" onclick="showScreen('unitQPScreen')">📄 Unit Question Paper</button>
+<button class="btn-menu b7" onclick="openChoose('vocab')">📚 Vocabulary</button>
+<button class="btn-menu b5" onclick="showScreen('bioScreen')">👤 About the Authors</button>
+<button class="btn-menu b11" onclick="openChoose('diary')">📔 My Little Diary</button>
+<button class="btn-menu b12" onclick="openChoose('letter')">✉️ Letter Box</button>
+<button class="btn-menu b13" onclick="openChoose('roleplay')">🎭 Role Play Zone</button>
+<button class="btn-menu b14" onclick="openChoose('grammar')">✏️ Grammar Quest</button>
+<button class="btn-menu b15" onclick="openChoose('punctuation')">❗ Punctuation</button>
+<button class="btn-menu b16" onclick="openChoose('wordfun')">🔤 Word Fun</button>
+<button class="btn-menu b9" onclick="openChoose('poster')">🪧 Poster &amp; Placard</button>
+<button class="btn-menu b17" onclick="showScreen('doorwayScreen')">🚪 The Doorway</button>
+<button class="btn-menu b18" onclick="showScreen('progressScreen')">📊 My Progress</button>
+<button class="btn-menu b8" onclick="showScreen('instructionsScreen')">ℹ️ Instructions</button>
+</div>
+</div>
+</div>
+
+<!-- CHOOSE LESSON -->
+<div id="chooseScreen" class="screen">
+<div class="section-header"><div class="section-title" id="chooseTitle">Choose a Lesson</div><button class="back-btn" onclick="showScreen('homeScreen')">Back</button></div>
+<div class="content-box"><div class="choose-wrap" id="chooseList"></div></div>
+</div>
+
+<!-- CONTENT -->
+<div id="contentScreen" class="screen">
+<div class="section-header"><div class="section-title" id="contentTitle">Content</div><button class="back-btn" id="contentBackBtn" onclick="goBackFromContent()">Back</button></div>
+<div class="content-box" id="contentBody"></div>
+</div>
+
+<!-- GAMES MENU -->
+<div id="gamesMenuScreen" class="screen">
+<div class="section-header"><div class="section-title" id="gamesMenuTitle">🎮 Games</div><button class="back-btn" onclick="openChoose('games')">Back</button></div>
+<div class="menu-grid" style="max-width:720px;margin:10px auto" id="gamesButtons"></div>
+</div>
+
+<div id="game1Screen" class="screen"><div class="game-box"><div class="game-instruction">🎮 Guess the correct word!</div><div class="g1-image-box" id="g1ImgBox"></div><div class="options-grid" id="g1OptionsGrid"></div><div class="result-msg" id="g1Result"></div></div></div>
+<div id="game2Screen" class="screen"><div class="game-box"><div class="game-instruction">🔗 Match English word with Malayalam meaning!</div><div class="match-container"><div class="match-column" id="g2WordsCol"></div><div class="match-column" id="g2MeanCol"></div></div><div class="result-msg" id="g2Result"></div></div></div>
+<div id="game3Screen" class="screen"><div class="game-box"><div class="game-instruction">🔍 Find the missing letter!</div><div class="g1-image-box" id="g3ImgBox"></div><div class="missing-word-display" id="g3WordDisplay"></div><div class="letters-options" id="g3LettersGrid"></div><div class="result-msg" id="g3Result"></div></div></div>
+<div id="game4Screen" class="screen"><div class="game-box"><div class="game-instruction">🧩 Arrange the letters!</div><div class="target-pic" id="g4ImgBox"></div><div class="drop-slots" id="g4Slots"></div><div class="scrambled-letters" id="g4Tiles"></div><div class="result-msg" id="g4Result"></div></div></div>
+<div id="game5Screen" class="screen"><div class="game-box"><div class="game-instruction">🎧 Listen and choose!</div><button class="listen-btn-big" id="g5ReplayBtn">🔊</button><div class="options-grid" id="g5OptionsGrid"></div><div class="result-msg" id="g5Result"></div></div></div>
+<div id="game6Screen" class="screen"><div class="game-box"><div class="game-instruction">🌟 Pick the English word!</div><div class="meaning-box ml" id="g6MeaningBox"></div><div class="options-grid" id="g6OptionsGrid"></div><div class="result-msg" id="g6Result"></div></div></div>
+<div id="game7Screen" class="screen"><div class="game-box"><div class="game-instruction">📋 Arrange events in order!</div><div id="g7SeqList" style="width:100%"></div><button class="check-btn" onclick="checkSequence()">✅ Check Order</button><div class="result-msg" id="g7Result"></div></div></div>
+<div id="game8Screen" class="screen"><div class="game-box"><div class="game-instruction">🎭 Who said / did this?</div><div class="meaning-box" id="g8QuoteBox" style="font-size:1.15rem"></div><div class="options-grid" id="g8OptionsGrid"></div><div class="result-msg" id="g8Result"></div></div></div>
+<div id="game9Screen" class="screen"><div class="game-box"><div class="game-instruction">🔄 Synonym / Antonym</div><div class="meaning-box" id="g9PromptBox" style="font-size:1.2rem"></div><div class="options-grid" id="g9OptionsGrid"></div><div class="result-msg" id="g9Result"></div></div></div>
+<div id="game10Screen" class="screen"><div class="game-box"><div class="game-instruction">📝 Complete the sentence!</div><div class="meaning-box" id="g10SentBox" style="font-size:1.15rem"></div><div class="options-grid" id="g10OptionsGrid"></div><div class="result-msg" id="g10Result"></div></div></div>
+
+<div id="modelQPScreen" class="screen"><div class="section-header"><div class="section-title">📋 Model Question Paper</div><button class="back-btn" onclick="showScreen('homeScreen')">Back</button></div><div class="content-box" id="modelQPContainer"></div></div>
+<div id="unitQPScreen" class="screen">
+<div class="section-header">
+<div class="section-title">📄 Unit Question Paper</div>
+<button class="back-btn" onclick="showScreen('homeScreen')">Back</button>
+</div>
+<div class="content-box" style="max-width:900px">
+<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:18px" class="no-print">
+<button class="btn-menu b1" style="padding:10px 22px;box-shadow:0 4px 0 rgba(0,0,0,.2)" onclick="printUnitQP()">🖨️ Print Question Paper</button>
+<button class="btn-menu b3" style="padding:10px 22px;box-shadow:0 4px 0 rgba(0,0,0,.2)" onclick="downloadUnitQPasPDF()">⬇️ Download as PDF</button>
+</div>
+<div id="unitQPPaper" class="unit-qp-paper">
+<!-- filled by JS -->
+</div>
+</div>
+</div>
+<div id="bioScreen" class="screen"><div class="section-header"><div class="section-title">👤 About the Authors</div><button class="back-btn" onclick="showScreen('homeScreen')">Back</button></div><div class="content-box" id="bioContainer"></div></div>
+<div id="doorwayScreen" class="screen"><div class="section-header"><div class="section-title">🚪 The Doorway</div><button class="back-btn" onclick="showScreen('homeScreen')">Back</button></div><div class="content-box" id="doorwayContainer"></div></div>
+<div id="progressScreen" class="screen"><div class="section-header"><div class="section-title">📊 My Progress</div><button class="back-btn" onclick="showScreen('homeScreen')">Back</button></div><div class="content-box" id="progressContainer"></div></div>
+<div id="instructionsScreen" class="screen">
+<div class="section-header"><div class="section-title">ℹ️ Instructions</div><button class="back-btn" onclick="showScreen('homeScreen')">Back</button></div>
+<div class="content-box"><div class="instructions-list ml"><ul>
+<li>ഹോം പേജിൽ പാഠങ്ങളുടെ പേര് ഇല്ല.</li>
+<li>ഓരോ ഓപ്ഷനും (Read / Quiz / Games / Activities...) ക്ലിക്ക് ചെയ്യുമ്പോൾ <b>മൂന്ന് പാഠഭാഗങ്ങളുടെ പേര്</b> വരും.</li>
+<li>ആ ഭാഗം തിരഞ്ഞെടുത്താൽ അതുമായി ബന്ധപ്പെട്ട ഉള്ളടക്കം കാണാം.</li>
+<li><b>3 പാഠഭാഗങ്ങൾ:</b> 1) Names and Names 2) The Colours of Earth (Song) 3) Crow Boy</li>
+<li>Model QP, Authors, Doorway, Progress — മുഴുവൻ യൂണിറ്റിനും ഒരുമിച്ച്.</li>
+<li><b>📄 Unit Question Paper</b> — 5 പ്രവർത്തനങ്ങൾ (മൂന്ന് ഭാഗങ്ങളിൽ നിന്നും). ആൻസർ ഇല്ല. Print / Download PDF ലഭ്യമാണ്.</li>
+<li>🔊 "Read the Lesson" ഭാഗത്തെ എല്ലാ ശബ്ദങ്ങളും ഇന്റർനെറ്റ് ഇല്ലാതെ, ഡിവൈസിന്റെ സ്വന്തം Text-to-Speech ഉപയോഗിച്ചാണ് പ്രവർത്തിക്കുന്നത് — അതിനാൽ ആപ്ലിക്കേഷനുള്ളിലും ശരിയായി പ്രവർത്തിക്കും.</li>
+</ul></div></div>
+</div>
+</div>
+
+<div class="modal-overlay" id="rewardModal"><div class="reward-card"><div class="reward-icon">🏅</div><h2 class="reward-title">Excellent!</h2><p class="reward-subtitle">You completed this activity!</p><button class="primary-action-btn" onclick="closeRewardModal()">Continue</button></div></div>
+
+<script>
+/* ============================================================
+   UNIT 1 : OF MANY HUES  — STD 6 — content data
+   ============================================================ */
+const LESSONS=[
+ {id:'names',title:'Names and Names',sub:'Short story',emoji:'🌍'},
+ {id:'colours',title:'The Colours of Earth',sub:'Song by Sarah Pirtle',emoji:'🎨'},
+ {id:'crowboy',title:'Crow Boy',sub:'Story by Taro Yashima',emoji:'🐦'}
+];
+const SECTION_TITLES={read:'📖 Choose a Part to Read',learn:'🗂️ Learn Words – Choose Part',activities:'📝 Activities – Choose Part',games:'🎮 Games – Choose Part',quiz:'❓ Quiz – Choose Part',vocab:'📚 Vocabulary – Choose Part',diary:'📔 Diary – Choose Part',letter:'✉️ Letter – Choose Part',roleplay:'🎭 Role Play – Choose Part',grammar:'✏️ Grammar – Choose Part',punctuation:'❗ Punctuation – Choose Part',wordfun:'🔤 Word Fun – Choose Part',poster:'🪧 Poster – Choose Part'};
+
+/* ---------- READING TEXT (paraphrased in short lines for read-aloud) ---------- */
+const NAMES_STORY=[
+ "Kunhichirutha stood at the gate, gazing at the passing vehicles and pedestrians on the street.",
+ "It was the end of a cold winter in New Jersey. The days were short and night fell early.",
+ "The changing length of day and night had always puzzled her. In July the sun set at eight thirty, but now it set before five.",
+ "\"Kun-hi-chi-ryoo-tha!\" called Kate, her classmate from across the street, mispronouncing her name again.",
+ "Kunhichirutha sighed. Kate still could not say her name correctly, even after six months at school.",
+ "Back in Kerala she had only learned a few English rhymes at play school, yet she had picked up English very quickly here.",
+ "Her classmates and teachers were kind, so she never felt like a stranger, even though many struggled with her name.",
+ "Even her teacher Ms. Hopkins found the name difficult. She managed the last part, but the first part remained a tongue twister.",
+ "There were twenty four students in her class, and nearly half of them belonged to immigrant families from many countries.",
+ "One day she met Prakash, who ran a confectionery near her school. He reminded her of her own uncle back home.",
+ "When Prakash asked her name and heard \"Kunhichirutha,\" his eyes widened, and he pronounced it perfectly.",
+ "Kunhichirutha was delighted, for Prakash was the first person outside her family to say her name correctly in America.",
+ "Prakash switched to Malayalam and asked, \"Do children still have names like Kunhichirutha?\" She told him about her great grandmother.",
+ "Her great grandmother had become a schoolteacher at eighteen, and that is how the unusual name had come down to her.",
+ "Soon a new girl named Antoinette joined the class. She had moved from Marseilles in France when her mother was transferred for work.",
+ "Kunhichirutha and Antoinette became friends. Both their names were hard for the class to pronounce, and that made them laugh together.",
+ "Kunhichirutha learned to say Antoinette's name the French way, and Antoinette learned to say Kunhichirutha's name too, even the tricky \"nh\" sound.",
+ "When Antoinette visited her home, even Amma could not say the French name properly, so Kunhichirutha became her mother's little language teacher."
+];
+const NAMES_QA=[
+ ["What did Kunhichirutha love doing at the gate?","She loved watching the passing vehicles and pedestrians on the street."],
+ ["Why was Kunhichirutha startled at the gate?","Because Kate suddenly called out her name, mispronouncing it as usual."],
+ ["Why didn't Kunhichirutha feel a stranger at school?","Because her classmates and teachers were kind and helpful to her."],
+ ["Why did Kunhichirutha think it was rude to call Prakash by his name?","Because back home in Kerala she would have called an elder like him \"Uncle\", not just his name."],
+ ["How did Kunhichirutha get her name?","She was named after her great grandmother, who became a schoolteacher at the age of eighteen."],
+ ["Why was Antoinette able to pronounce Kunhichirutha's name fairly well?","Because her own name was also hard for others to say, so she understood the sounds and tried carefully."]
+];
+
+const COLOURS_POEM=[
+ "We are made of the colours of earth. Each colour is different, each colour is true.",
+ "We are made of the colours of earth. I love the colours that made you.",
+ "When I look in the eyes of my friends, I can see topaz, I can see sky.",
+ "The green and the gray of the sea rolling by, and the dazzling brown river in the morning.",
+ "When I look at the hands of my friends, I can see chestnut, I can see corn,",
+ "The colour of wheat and a dappled brown fawn, and the sun-kissed black trees in the morning.",
+ "Tell me the names of the colours of earth: the purple of eggplant, the orange of peach,",
+ "The green and the black of the stones on the beach, and the sun on the mountain in the morning."
+];
+const COLOURS_QA=[
+ ["What colours are we made of, according to the song?","We are made of the many different colours of the earth."],
+ ["What colours can the speaker see in the eyes of friends?","The speaker sees topaz and sky colours in the eyes of friends."],
+ ["Name two natural things mentioned in the song.","The sea, the river, wheat, a fawn, black trees, eggplant, peach and the mountain are mentioned."],
+ ["What is the song trying to say about humans and nature?","It says that every person carries the beautiful, true colours of the earth, and every colour deserves to be loved."],
+ ["What colours does the speaker see on the beach?","Green and black, the colours of the stones on the beach."]
+];
+
+const CROWBOY_STORY=[
+ "On the first day of village school, one of the boys was found missing.",
+ "He had hidden himself in a cellar in the schoolhouse. He was dark, small, and looked different from the other children.",
+ "Because he lived on the far side of the mountain and was so small, he was nicknamed Chibi, meaning \"tiny boy.\"",
+ "Chibi was too scared of the teacher and the other children, so he was always left alone at study time and play time.",
+ "Still, Chibi found ways to amuse himself. He stared at his desk, gazed at the ceiling, and watched insects and grubs no one else would touch.",
+ "In the playground he would close his eyes and listen to all the wonderful sounds around him.",
+ "Everyone, even younger children, called him slowpoke. Yet Chibi came trudging to school every day, rain or storm, wrapped in a raincoat of zebra grass.",
+ "Five years passed, and the class reached the sixth grade. A new, kind teacher named Mr. Isobe changed the way everyone looked at Chibi.",
+ "Mr. Isobe often took the class to the hilltop. He was amazed that Chibi knew every place where wild grapes and wild potatoes grew.",
+ "He liked Chibi's black-and-white drawings and pinned them up for everyone to see, and he often spoke to Chibi kindly when no one else was around.",
+ "At the year's talent show, everyone laughed when Chibi walked onto the stage, until Mr. Isobe announced that Chibi would imitate the cries of crows.",
+ "Chibi imitated newly hatched crows, then mother and father crows, then crows crying at dawn, and crows that were happy or sad.",
+ "Everybody's mind travelled to the far, lonely mountainside where Chibi walked to school and back every day for six years.",
+ "Mr. Isobe explained that Chibi had learned every one of those calls on his long, lonely walk from home to school at dawn and back at sunset.",
+ "Everyone in the hall cried, ashamed of how they had treated Chibi for so many years. Even the grown-ups wiped their eyes and said, \"He is wonderful.\"",
+ "Chibi was the only student honoured for perfect attendance through all six years, and after that talent show nobody called him Chibi anymore.",
+ "They called him \"Crow Boy\" instead, and as he walked home along the mountain road, they could still hear his happy crow call."
+];
+const CROWBOY_QA=[
+ ["Why did Chibi hide in the cellar on the first day?","Because he felt scared and different from the other children, so he hid instead of joining the class."],
+ ["What does the nickname \"Chibi\" mean?","It means \"tiny boy,\" given to him because of his small size."],
+ ["How did Chibi amuse himself when he was left alone?","He stared at his desk, gazed at the ceiling, listened to sounds in the playground, and watched insects and grubs."],
+ ["Who changed the way the other children looked at Chibi, and how?","Mr. Isobe, the new teacher, noticed Chibi's knowledge of nature and his talent, and helped everyone see his true worth."],
+ ["How did Chibi learn the cries of the crows?","By walking alone through the mountains to school at dawn and back at sunset every day for six years."],
+ ["What new name did Chibi get after the talent show, and why?","He was called \"Crow Boy\" because of his wonderful, true-to-life imitation of crow calls at the talent show."]
+];
+
+const READ_DATA={names:{title:'🌍 Names and Names',lines:NAMES_STORY,qa:NAMES_QA},colours:{title:'🎨 The Colours of Earth',lines:COLOURS_POEM,qa:COLOURS_QA},crowboy:{title:'🐦 Crow Boy',lines:CROWBOY_STORY,qa:CROWBOY_QA}};
+
+/* ---------- VOCABULARY ---------- */
+function makeVocab(word,meaning,emoji){
+ const letters=word.split('');
+ const idx=Math.max(1,Math.floor(letters.length/2));
+ const missingLetter=letters[idx];
+ const missingDisplay=letters.map((c,i)=>i===idx?'_':c).join('');
+ return {id:word.replace(/[^a-z]/gi,''),word,meaning,emoji,letters,missingLetter,missingDisplay};
+}
+const VOCAB_BY_LESSON={
+ names:[
+  makeVocab('pedestrians','കാൽനടയാത്രക്കാർ','🚶'),
+  makeVocab('immigrant','കുടിയേറ്റക്കാരൻ','🧳'),
+  makeVocab('confectionery','മധുരപലഹാരക്കട','🍬'),
+  makeVocab('relocated','മാറിത്താമസിച്ച','🏠'),
+  makeVocab('startled','ഞെട്ടിപ്പോയ','😲'),
+  makeVocab('beamed','പുഞ്ചിരിച്ചു','😊')
+ ],
+ colours:[
+  makeVocab('dazzling','തിളക്കമുള്ള','✨'),
+  makeVocab('gazing','സൂക്ഷിച്ചുനോക്കൽ','👀'),
+  makeVocab('chestnut','തവിട്ടുനിറം','🌰'),
+  makeVocab('fawn','മാൻകുട്ടി','🦌'),
+  makeVocab('eggplant','വഴുതനങ്ങ','🍆')
+ ],
+ crowboy:[
+  makeVocab('cellar','നിലവറ','🕳️'),
+  makeVocab('schoolhouse','സ്കൂൾ കെട്ടിടം','🏫'),
+  makeVocab('slowpoke','മന്ദഗതിക്കാരൻ','🐌'),
+  makeVocab('trudging','ക്ഷീണിച്ചു നടക്കൽ','🥾'),
+  makeVocab('astounded','അത്ഭുതപ്പെട്ട','😮'),
+  makeVocab('ascended','മുകളിലേക്കു കയറി','⬆️'),
+  makeVocab('tacked','പിൻ ചെയ്തു ഒട്ടിച്ചു','📌'),
+  makeVocab('charcoal','കരി','⚫'),
+  makeVocab('grubs','പുഴുക്കൾ','🐛')
+ ]
+};
+const GLOSSARY=[
+ ['ascended','went up or climbed'],['astounded','surprised'],['beamed','smiled widely with happiness'],
+ ['cellar','a room below ground level, usually used for storage'],['charcoal','a dark, black material used for drawing or as fuel'],
+ ['come across','find something or someone by chance'],['confectionery','a place where sweets are made or kept'],
+ ['dappled brown fawn','a young deer with brown fur and spots or patches'],['dazzling','very bright and shiny'],
+ ['gazing','looking for a long time with interest'],['grubs','the young, worm-like form of an insect'],
+ ['immigrant','a person who moves to a new country to settle there'],['patted','tapped someone gently, usually with the hand'],
+ ['pedestrians','people who are walking'],['picked up','learned something new'],['relocated','moved to a new place'],
+ ['schoolhouse','a traditional school building'],['slowpoke','a person who is slow at doing things'],
+ ['startled','surprised or scared suddenly'],['switched over','changed from one thing to another'],
+ ['tacked','attached or pinned something'],['trudging','walking slowly and heavily, as if tired']
+];
+
+/* ---------- QUIZ ---------- */
+const QUIZ_BY_LESSON={
+ names:[
+  {q:'Where does the story "Names and Names" take place?',opts:['Kerala','New Jersey, USA','France','China'],ans:1},
+  {q:'What did Kate always get wrong?',opts:['Kunhichirutha\'s age','Kunhichirutha\'s name','Kunhichirutha\'s house','Kunhichirutha\'s dress'],ans:1},
+  {q:'Who was the first person in America to say her name correctly?',opts:['Ms. Hopkins','Kate','Prakash','Antoinette'],ans:2},
+  {q:'How did Kunhichirutha get her unusual name?',opts:['From a film','From her great grandmother','From a teacher','From a book'],ans:1},
+  {q:'Where was Antoinette from?',opts:['Egypt','Mexico','Marseilles, France','Canada'],ans:2}
+ ],
+ colours:[
+  {q:'The song "The Colours of Earth" was written by',opts:['Taro Yashima','Sarah Pirtle','Maya Angelou','Kunhichirutha'],ans:1},
+  {q:'What colours does the speaker see in a friend\'s eyes?',opts:['Topaz and sky','Black and white','Red and gold','Silver and grey'],ans:0},
+  {q:'The dazzling brown ______ is mentioned in the morning.',opts:['mountain','river','stone','wheat'],ans:1},
+  {q:'The purple of ______ is one of the colours named.',opts:['eggplant','peach','wheat','corn'],ans:0},
+  {q:'What message does the song give?',opts:['Only one colour is beautiful','Every colour of the earth is true and worth loving','Colours should be hidden','Colours are unimportant'],ans:1}
+ ],
+ crowboy:[
+  {q:'What does the nickname "Chibi" mean?',opts:['Crow boy','Tiny boy','Slow boy','Happy boy'],ans:1},
+  {q:'Where did Chibi hide on the first day of school?',opts:['Under a tree','In a cellar','In the playground','At home'],ans:1},
+  {q:'Who changed the way the class looked at Chibi?',opts:['The clown','Mr. Isobe','Kate','Prakash'],ans:1},
+  {q:'What did Chibi imitate at the talent show?',opts:['Songs','The cries of crows','A dance','A play'],ans:1},
+  {q:'What new name did Chibi get at the end of the story?',opts:['Slowpoke','Tiny Boy','Crow Boy','Mountain Boy'],ans:2}
+ ]
+};
+
+/* ---------- SEQUENCE GAME ---------- */
+const SEQ_EVENTS_BY_LESSON={
+ names:[
+  {text:'Kunhichirutha stands at the gate watching the street.',order:1},
+  {text:'Kate calls out, mispronouncing her name as usual.',order:2},
+  {text:'Kunhichirutha meets Prakash at the confectionery.',order:3},
+  {text:'Prakash pronounces her name correctly and asks about it.',order:4},
+  {text:'Antoinette joins the class from France.',order:5},
+  {text:'The two girls teach each other to say their names.',order:6}
+ ],
+ colours:[
+  {text:'The speaker looks in the eyes of friends.',order:1},
+  {text:'The speaker looks at the hands of friends.',order:2},
+  {text:'The speaker names colours of the beach and stones.',order:3},
+  {text:'The speaker names the sun on the mountain in the morning.',order:4}
+ ],
+ crowboy:[
+  {text:'Chibi hides in the cellar on the first day of school.',order:1},
+  {text:'Chibi is left alone and called "slowpoke" by classmates.',order:2},
+  {text:'Mr. Isobe becomes the new teacher and notices Chibi\'s talents.',order:3},
+  {text:'Chibi performs crow calls at the talent show.',order:4},
+  {text:'Everyone learns how Chibi walked the mountain for six years.',order:5},
+  {text:'Chibi is renamed "Crow Boy" by the whole village.',order:6}
+ ]
+};
+
+/* ---------- WHO SAID / DID IT ---------- */
+const CHAR_QUOTES_BY_LESSON={
+ names:[
+  {quote:'"Kun-hi-chi-ryoo-tha!"',ans:'Kate',opts:['Kate','Prakash','Antoinette','Ms. Hopkins']},
+  {quote:'"What do people call you, dear?"',ans:'Prakash',opts:['Prakash','Kate','Antoinette','Amma']},
+  {quote:'"Do children still have names like Kunhichirutha?"',ans:'Prakash',opts:['Prakash','Kate','Antoinette','Ms. Hopkins']}
+ ],
+ colours:[
+  {quote:'"I love the colours that made you."',ans:'The speaker of the song',opts:['The speaker of the song','A crow','A teacher','A pedestrian']}
+ ],
+ crowboy:[
+  {quote:'"What can that stupid do up there?"',ans:'A classmate',opts:['A classmate','Mr. Isobe','Chibi','Chibi\'s mother']},
+  {quote:'"Cries of crows?"',ans:'A classmate',opts:['A classmate','Mr. Isobe','Chibi','A grown-up']},
+  {quote:'"Yes, yes, he is wonderful."',ans:'A grown-up in the audience',opts:['A grown-up in the audience','Chibi','A crow','Kate']}
+ ]
+};
+
+/* ---------- SYNONYM / ANTONYM ---------- */
+const SYN_ANT_BY_LESSON={
+ names:[
+  {prompt:'Synonym of "delighted"',ans:'pleased',opts:['pleased','angry','tired','bored']},
+  {prompt:'Antonym of "startled"',ans:'calm',opts:['calm','shocked','surprised','afraid']}
+ ],
+ colours:[
+  {prompt:'Synonym of "dazzling"',ans:'brilliant',opts:['brilliant','dull','dark','plain']},
+  {prompt:'Antonym of "true"',ans:'false',opts:['false','honest','real','correct']}
+ ],
+ crowboy:[
+  {prompt:'Synonym of "astounded"',ans:'amazed',opts:['amazed','bored','angry','calm']},
+  {prompt:'Antonym of "trudging"',ans:'skipping',opts:['skipping','walking','crawling','trudging']}
+ ]
+};
+
+/* ---------- SENTENCE COMPLETION ---------- */
+const SENT_COMP_BY_LESSON={
+ names:[
+  {sent:'Kunhichirutha loved watching the _______ from the gate.',ans:'vehicles',opts:['vehicles','crows','colours','mountains']},
+  {sent:'Prakash was the first person to say her name _______.',ans:'correctly',opts:['correctly','loudly','slowly','wrongly']}
+ ],
+ colours:[
+  {sent:'We are made of the _______ of earth.',ans:'colours',opts:['colours','stones','rivers','crows']},
+  {sent:'I can see topaz, I can see _______.',ans:'sky',opts:['sky','sea','sand','stars']}
+ ],
+ crowboy:[
+  {sent:'Chibi was nicknamed _______ because of his size.',ans:'Chibi',opts:['Chibi','Slowpoke','Crow Boy','Isobe']},
+  {sent:'Chibi imitated the cries of _______ at the talent show.',ans:'crows',opts:['crows','dogs','birds of paradise','children']}
+ ]
+};
+
+/* ============================================================
+   CORE APP LOGIC
+   ============================================================ */
+function showScreen(id){playSound('click');stopSpeak();document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const t=document.getElementById(id);if(t)t.classList.add('active');if(id==='modelQPScreen')renderModelQP();if(id==='unitQPScreen')renderUnitQP();if(id==='bioScreen')renderBio();if(id==='doorwayScreen')renderDoorway();if(id==='progressScreen')renderProgress()}
+
+function openChoose(section){state.currentSection=section;state.lastChooseSection=section;document.getElementById('chooseTitle').innerText=SECTION_TITLES[section]||'Choose a Part';const list=document.getElementById('chooseList');list.innerHTML='';LESSONS.forEach(L=>{const d=document.createElement('div');d.className='lesson-pick';d.innerHTML=`<div class="lp-emoji">${L.emoji}</div><div><div class="lp-title">${L.title}</div><div class="lp-sub">${L.sub}</div></div>`;d.onclick=()=>selectLesson(L.id);list.appendChild(d)});showScreen('chooseScreen')}
+
+function selectLesson(lessonId){state.currentLesson=lessonId;state.visited[state.currentSection+'_'+lessonId]=true;if(state.currentSection==='games'){openGamesMenu(lessonId);return}renderContentFor(state.currentSection,lessonId)}
+
+function goBackFromContent(){if(state.lastChooseSection)openChoose(state.lastChooseSection);else showScreen('homeScreen')}
+
+function openGamesMenu(lessonId){const L=LESSONS.find(x=>x.id===lessonId);document.getElementById('gamesMenuTitle').innerText=`🎮 Games – ${L?L.title:''}`;document.getElementById('gamesButtons').innerHTML=`<button class="btn-menu b1" onclick="launchGame(1)">🖼️ Picture Detective</button><button class="btn-menu b2" onclick="launchGame(2)">🔗 Word–Meaning Match</button><button class="btn-menu b3" onclick="launchGame(3)">🔍 Missing Letter Hunter</button><button class="btn-menu b4" onclick="launchGame(4)">🧩 Word Builder</button><button class="btn-menu b5" onclick="launchGame(5)">🎧 Listening Challenge</button><button class="btn-menu b9" onclick="launchGame(6)">🌟 Meaning Master</button><button class="btn-menu b6" onclick="launchGame(7)">📋 Sequence the Events</button><button class="btn-menu b10" onclick="launchGame(8)">🎭 Who Said / Did It?</button><button class="btn-menu b14" onclick="launchGame(9)">🔄 Synonym / Antonym</button><button class="btn-menu b15" onclick="launchGame(10)">📝 Sentence Completer</button>`;showScreen('gamesMenuScreen')}
+
+function renderContentFor(section,lessonId){const L=LESSONS.find(x=>x.id===lessonId);document.getElementById('contentTitle').innerText=(SECTION_TITLES[section]||section)+' → '+(L?L.title:'');const body=document.getElementById('contentBody');body.innerHTML='';if(section==='read')renderRead(body,lessonId);else if(section==='learn')renderLearn(body,lessonId);else if(section==='activities')renderActivities(body,lessonId);else if(section==='quiz')renderQuiz(body,lessonId);else if(section==='vocab')renderVocab(body,lessonId);else if(section==='diary')renderDiary(body,lessonId);else if(section==='letter')renderLetter(body,lessonId);else if(section==='roleplay')renderRoleplay(body,lessonId);else if(section==='grammar')renderGrammar(body,lessonId);else if(section==='punctuation')renderPunctuation(body,lessonId);else if(section==='wordfun')renderWordFun(body,lessonId);else if(section==='poster')renderPoster(body,lessonId);showScreen('contentScreen')}
+
+/* ---------- READ ---------- */
+function renderRead(body,lessonId){const d=READ_DATA[lessonId]||READ_DATA.names;const lines=d.lines,qa=d.qa,title=d.title;
+body.innerHTML=`<div class="story-title-wrap"><span class="story-title">${title}</span></div><button class="read-all-btn" id="readAllBtn">🔊 Read All / Stop</button><div id="storyParas"></div><div class="activity-block" style="margin-top:20px"><div class="activity-heading">🔎 Let's Explore</div><div id="qaBox"></div></div>`;
+const paras=document.getElementById('storyParas');lines.forEach(line=>{const div=document.createElement('div');div.className='story-para';div.innerHTML=`<p>${line}</p><button class="mini-play" onclick="speakText(this.dataset.t)" data-t="${line.replace(/"/g,'&quot;')}">🔊</button>`;paras.appendChild(div)});
+const qaBox=document.getElementById('qaBox');qa.forEach((item,i)=>{const el=document.createElement('div');el.className='qa-line';el.innerHTML=`<div class="q">${i+1}. ${item[0]}</div><div class="a" id="qa${i}">${item[1]}</div><button class="reveal-btn" onclick="document.getElementById('qa${i}').classList.toggle('show')">💡 Show Answer</button>`;qaBox.appendChild(el)});
+let reading=false;document.getElementById('readAllBtn').onclick=function(){if(reading){stopSpeak();reading=false;return}reading=true;let i=0;function next(){if(i>=lines.length||!reading){reading=false;return}speakText(lines[i],()=>{i++;next()})}next()}}
+
+/* ---------- LEARN WORDS ---------- */
+function renderLearn(body,lessonId){const vocab=VOCAB_BY_LESSON[lessonId]||[];body.innerHTML=`<div class="cards-grid" id="learnGrid"></div>`;const grid=document.getElementById('learnGrid');vocab.forEach(item=>{const card=document.createElement('div');card.className='word-card';card.onclick=()=>{card.classList.add('playing');speakText(item.word);playSound('click');setTimeout(()=>card.classList.remove('playing'),1200)};card.innerHTML=`<div class="card-emoji">${item.emoji}</div><div class="word-eng">${item.word}</div><div class="word-meaning ml">${item.meaning}</div><button class="replay-btn">🔊 Listen</button>`;grid.appendChild(card)})}
+
+/* ---------- ACTIVITIES (based on textbook tasks) ---------- */
+function renderActivities(body,lessonId){
+ if(lessonId==='names'){
+ body.innerHTML=`<div class="activity-heading">📝 Activities – Names and Names</div>
+ <div class="activity-block"><div class="activity-sub">1. Complete the country → people table.</div>
+ <div class="activity-line">France : <select class="a1" data-ans="French"><option value="">?</option><option>French</option><option>Frenchy</option><option>Francian</option></select></div>
+ <div class="activity-line">Germany : <select class="a1" data-ans="German"><option value="">?</option><option>German</option><option>Germanic</option><option>Germany</option></select></div>
+ <div class="activity-line">Spain : <select class="a1" data-ans="Spanish"><option value="">?</option><option>Spanish</option><option>Spainish</option><option>Spaniard</option></select></div>
+ <div class="activity-line">The UAE : <select class="a1" data-ans="Emirati"><option value="">?</option><option>Emirati</option><option>UAEian</option><option>Arabian</option></select></div>
+ <button class="check-btn" onclick="genericCheck('a1','a1Res')">Check</button><div id="a1Res" class="result-msg"></div></div>
+ <div class="activity-block"><div class="activity-sub">2. Match the phrasal verb to its meaning.</div>
+ <div class="activity-line">"come across" means: <select class="a2" data-ans="find by chance"><option value="">?</option><option>find by chance</option><option>run away</option><option>write down</option></select></div>
+ <div class="activity-line">"switched over" means: <select class="a2" data-ans="changed to another"><option value="">?</option><option>changed to another</option><option>shouted loudly</option><option>fell down</option></select></div>
+ <div class="activity-line">"picked up" means: <select class="a2" data-ans="learned"><option value="">?</option><option>learned</option><option>threw away</option><option>slept</option></select></div>
+ <button class="check-btn" onclick="genericCheck('a2','a2Res')">Check</button><div id="a2Res" class="result-msg"></div></div>
+ <div class="activity-block"><div class="activity-sub">3. Imagine a new student from another country / state joins your school. Write 3 sentences on how you will help them settle in (use will / shall / can).</div><textarea class="diary-area" placeholder="I will show her around the school and introduce her to my friends..."></textarea>
+ <button class="reveal-model-btn" onclick="revealModel('namesModel',this)">💡 Show Model</button><div class="model-answer-box" id="namesModel">I will show her around the school and introduce her to my friends. I can help her with new subjects and the local language. We shall visit the library and cafeteria together.</div></div>`;
+ }else if(lessonId==='colours'){
+ body.innerHTML=`<div class="activity-heading">📝 Activities – The Colours of Earth</div>
+ <div class="activity-block"><div class="activity-sub">1. Colours that go with fruits — add two more of your own on paper: Apple Red, Banana Yellow, Eggplant Purple, Peach Orange.</div></div>
+ <div class="activity-block"><div class="activity-sub">2. Colours paired with nature/objects: Sky Blue, Sunset Orange, Chestnut Brown, Stone Grey.</div></div>
+ <div class="activity-block"><div class="activity-sub">3. Find the describing words for objects in these lines: "The green and the gray of the sea rolling by, and the dazzling brown river in the morning."</div>
+ <button class="reveal-model-btn" onclick="revealModel('coloursModel',this)">💡 Show Model</button><div class="model-answer-box" id="coloursModel">Describing words: green, gray (for the sea) and dazzling, brown (for the river).</div></div>
+ <div class="activity-block"><div class="activity-sub">4. Write two sentences of your own using describing words, like the example: "I was walking by a sun-kissed building."</div><textarea class="diary-area"></textarea></div>`;
+ }else{
+ body.innerHTML=`<div class="activity-heading">📝 Activities – Crow Boy</div>
+ <div class="activity-block"><div class="activity-sub">1. Complete the story map. Fill in the missing parts.</div>
+ <div class="activity-line">Beginning: On the first day, Chibi hides because he feels _______ and alone.</div>
+ <div class="activity-line">Middle: __________________________________________</div>
+ <div class="activity-line">Ending: __________________________________________</div>
+ <textarea class="diary-area" placeholder="Write the middle and ending of the story map here..."></textarea></div>
+ <div class="activity-block"><div class="activity-sub">2. Write a sentence about each quality of Chibi.</div>
+ <div class="activity-line">Patient : Chibi is a very patient boy. He waited quietly even when he was left alone.</div>
+ <div class="activity-line">Talented : _______________________________________</div>
+ <div class="activity-line">Hard-working : ___________________________________</div>
+ <textarea class="diary-area"></textarea></div>
+ <div class="activity-block"><div class="activity-sub">3. What does the story tell us about treating others who are different from us?</div>
+ <button class="reveal-model-btn" onclick="revealModel('crowModel',this)">💡 Show Model</button><div class="model-answer-box" id="crowModel">The story tells us never to judge people by how they look or how slow they seem. Everyone has a hidden talent, and a little kindness — like Mr. Isobe showed — can help that talent shine.</div></div>`;
+ }
+}
+
+/* ---------- QUIZ ---------- */
+function renderQuiz(body,lessonId){const quiz=QUIZ_BY_LESSON[lessonId]||[];state.quizSubmitted=false;body.innerHTML=`<div id="quizScoreBox" style="display:none" class="quiz-score-box"></div><div id="quizContainer"></div><div style="text-align:center"><button class="submit-quiz-btn" onclick="submitQuiz('${lessonId}')">✅ Submit Answers</button></div>`;const c=document.getElementById('quizContainer');quiz.forEach((item,qi)=>{const qd=document.createElement('div');qd.className='quiz-q';qd.innerHTML=`<div class="qtext">${qi+1}. ${item.q}</div><div class="quiz-opts" id="qopts${qi}"></div>`;c.appendChild(qd);const od=qd.querySelector('#qopts'+qi);item.opts.forEach((opt,oi)=>{const b=document.createElement('div');b.className='quiz-opt';b.innerText=opt;b.dataset.qi=qi;b.dataset.oi=oi;b.onclick=()=>{if(state.quizSubmitted)return;document.querySelectorAll(`#qopts${qi} .quiz-opt`).forEach(e=>e.classList.remove('picked'));b.classList.add('picked');playSound('click')};od.appendChild(b)})})}
+function submitQuiz(lessonId){if(state.quizSubmitted)return;state.quizSubmitted=true;const quiz=QUIZ_BY_LESSON[lessonId]||[];let score=0;quiz.forEach((item,qi)=>{const opts=document.querySelectorAll(`#qopts${qi} .quiz-opt`);const picked=document.querySelector(`#qopts${qi} .picked`);if(picked&&parseInt(picked.dataset.oi)===item.ans)score++;opts.forEach(o=>{if(parseInt(o.dataset.oi)===item.ans)o.classList.add('correct-ans');else if(o.classList.contains('picked'))o.classList.add('wrong-ans')})});state.score+=score*10;state.stars+=(score>=Math.ceil(quiz.length*.8)?2:1);updateStatsUI();const box=document.getElementById('quizScoreBox');box.style.display='block';box.innerHTML=`Your Score: ${score} / ${quiz.length}  ${score>=Math.ceil(quiz.length*.8)?'Excellent!':score>=Math.ceil(quiz.length*.5)?'Good job!':'Keep practicing!'}`;playSound(score>=Math.ceil(quiz.length*.8)?'fanfare':'correct')}
+
+/* ---------- VOCAB TABLE ---------- */
+function renderVocab(body,lessonId){const vocab=VOCAB_BY_LESSON[lessonId]||[];body.innerHTML=`<table class="vocab-table"><thead><tr><th>Word</th><th>Meaning (മലയാളം)</th></tr></thead><tbody>${vocab.map(v=>`<tr><td><span class="vocab-emoji">${v.emoji}</span> <b>${v.word}</b></td><td class="ml">${v.meaning}</td></tr>`).join('')}</tbody></table>`}
+
+/* ---------- DIARY ---------- */
+function renderDiary(body,lessonId){
+ if(lessonId==='names'){body.innerHTML=`<div class="activity-heading">📔 Diary – A new friend</div><div class="diary-page"><textarea class="diary-area" placeholder="Dear Diary, Today I made a new friend whose name was hard to pronounce..."></textarea></div><button class="reveal-model-btn" onclick="revealModel('dn1',this)">💡 Show Model</button><div class="model-answer-box" id="dn1">Dear Diary,<br>Today a new friend joined our class. Her name was difficult at first, but I learned to say it correctly, and it made her smile. I am proud that I could make her feel welcome.<br>- Me</div>`}
+ else if(lessonId==='crowboy'){body.innerHTML=`<div class="activity-heading">📔 Diary – Imagine you are Chibi</div><div class="diary-page"><textarea class="diary-area" placeholder="Dear Diary, Today I stood on the stage at the talent show..."></textarea></div><button class="reveal-model-btn" onclick="revealModel('dn2',this)">💡 Show Model</button><div class="model-answer-box" id="dn2">Dear Diary,<br>Today everyone laughed at first, but when I called like the crows, the whole hall went silent. Mr. Isobe told them about my long walk over the mountain. Now they call me Crow Boy, and I finally feel like I belong.<br>- Chibi</div>`}
+ else{body.innerHTML=`<div class="activity-heading">📔 Diary – Colours around me</div><div class="diary-page"><textarea class="diary-area" placeholder="Dear Diary, Today I noticed so many beautiful colours..."></textarea></div>`}
+}
+
+/* ---------- LETTER ---------- */
+function renderLetter(body,lessonId){
+ if(lessonId==='names'){body.innerHTML=`<div class="activity-heading">✉️ Letter – Reply to Antoinette's Email</div><div class="letter-box"><p style="margin-bottom:8px">From: kunhichirutha@mail.com &nbsp; To: antoinette12@mail.com</p><textarea class="diary-area" placeholder="Dear Antoinette,&#10;I was excited to get your mail! It made me so happy to hear from you...&#10;(write about your own vacation, and ask about hers)"></textarea></div>`}
+ else if(lessonId==='crowboy'){body.innerHTML=`<div class="activity-heading">✉️ Letter – Thank-you note to Mr. Isobe</div><div class="letter-box"><textarea class="diary-area" placeholder="Dear Teacher,&#10;Thank you for believing in me when no one else did..."></textarea></div><button class="reveal-model-btn" onclick="revealModel('ln1',this)">💡 Show Model</button><div class="model-answer-box" id="ln1">Dear Teacher,<br>Thank you for being a wonderful teacher to me. You helped me when I was scared and lonely. I am so thankful for your kindness and support.<br>Love,<br>Chibi</div>`}
+ else{body.innerHTML=`<div class="activity-heading">✉️ Letter – Describe your favourite colour</div><div class="letter-box"><textarea class="diary-area" placeholder="Dear Friend,&#10;My favourite colour is..."></textarea></div>`}
+}
+
+/* ---------- ROLE PLAY ---------- */
+function renderRoleplay(body,lessonId){
+ if(lessonId==='names'){body.innerHTML=`<div class="activity-heading">🎭 At Prakash's Shop</div><div class="script-line"><b>Prakash:</b> What do people call you, dear?</div><div class="script-line"><b>Kunhichirutha:</b> Kunhichirutha.</div><div class="script-line"><b>Prakash:</b> Kunhichirutha! Do children still have names like that?</div><div class="script-line"><b>Kunhichirutha:</b> Yes, Uncle — I am named after my great grandmother.</div>`}
+ else if(lessonId==='crowboy'){body.innerHTML=`<div class="activity-heading">🎭 The Talent Show</div><div class="script-line"><b>Classmate 1:</b> Who's that? What can that boy do up there?</div><div class="script-line"><b>Mr. Isobe:</b> Chibi is going to imitate the cries of crows.</div><div class="script-line"><b>Classmate 2:</b> (after the show) Yes, yes... he is wonderful!</div><div class="script-line"><b>Everyone:</b> Hi, Crow Boy!</div>`}
+ else{body.innerHTML=`<div class="activity-heading">🎭 Recite the Song</div><div class="activity-sub">Recite "The Colours of Earth" with actions. Point to the sky, the sea and your friends' hands as you sing each colour word.</div>`}
+}
+
+/* ---------- GRAMMAR ---------- */
+function renderGrammar(body,lessonId){body.innerHTML=`<div class="activity-heading">✏️ Grammar Quest – will / shall / can</div><div class="activity-block"><div class="activity-sub">Fill in the blanks with will, shall or can.</div><p>I ____ show her around the school.</p>
+<select class="g-sel" data-ans="will"><option value="">?</option><option value="will">will</option><option value="can">can</option><option value="shall">shall</option></select>
+<p>We ____ visit the library together.</p>
+<select class="g-sel" data-ans="shall"><option value="">?</option><option value="will">will</option><option value="can">can</option><option value="shall">shall</option></select>
+<p>She ____ speak a little English already.</p>
+<select class="g-sel" data-ans="can"><option value="">?</option><option value="will">will</option><option value="can">can</option><option value="shall">shall</option></select>
+<button class="check-btn" onclick="genericCheck('g-sel','gRes')">Check</button><div id="gRes" class="result-msg"></div></div>
+<div class="activity-block"><div class="activity-sub">Country → Nationality (demonyms)</div><p>India → Indian, Canada → Canadian, China → Chinese, Egypt → Egyptian, Japan → Japanese, Mexico → Mexican.</p></div>`}
+
+/* ---------- PUNCTUATION ---------- */
+function renderPunctuation(body,lessonId){body.innerHTML=`<div class="activity-heading">❗ Punctuation</div><div class="activity-block">
+<p>What do people call you, dear<select class="p-sel" data-ans="?"><option>?</option><option value=".">.</option><option value="!">!</option><option value="?">?</option></select></p>
+<p>Kunhichirutha<select class="p-sel" data-ans="!"><option>?</option><option value=".">.</option><option value="!">!</option><option value="?">?</option></select></p>
+<p>Everyone in the hall cried<select class="p-sel" data-ans="."><option>?</option><option value=".">.</option><option value="!">!</option><option value="?">?</option></select></p>
+<button class="check-btn" onclick="genericCheck('p-sel','pRes')">Check</button><div id="pRes" class="result-msg"></div></div>`}
+
+/* ---------- WORD FUN ---------- */
+function renderWordFun(body,lessonId){body.innerHTML=`<div class="activity-heading">🔤 Word Fun</div>
+<div class="activity-block"><div class="activity-sub">Phrasal verbs from the story: come across, switched over, picked up, fix a time, check out, look up, drop off, get going.</div></div>
+<div class="activity-block"><div class="activity-sub">Acrostic — pick words that describe you, starting with each letter of your own name (as Kunhichirutha and Antoinette did in the book: K-Kind, U-Understanding, A-Active, N-Nice...). Try it with your own name on paper!</div></div>
+<div class="activity-block"><div class="activity-sub">Unscramble</div><p>1. RCWO YBO → CROW BOY</p><p>2. GRTIANMIM → IMMIGRANT</p><p>3. RUZDDLZAIGN → DAZZLING</p></div>`}
+
+/* ---------- POSTER ---------- */
+function renderPoster(body,lessonId){body.innerHTML=`<div class="activity-heading">🪧 Poster &amp; Placard</div><div class="poster-box"><p style="font-size:1.3rem;font-weight:800;color:#2E7D32">"In diversity there is beauty and there is strength."</p><p class="ml" style="margin-top:6px">— Maya Angelou</p></div><div class="activity-block"><div class="activity-sub">Design your own poster celebrating diversity. You could use:</div><p>🌍 "Different names, one friendship."</p><p>🎨 "We are made of the colours of earth."</p><p>🐦 "Every voice deserves to be heard."</p><textarea class="diary-area" placeholder="Write your poster message..."></textarea></div>`}
+
+/* ---------- MODEL QUESTION PAPER ---------- */
+function renderModelQP(){document.getElementById('modelQPContainer').innerHTML=`<div style="text-align:center;margin-bottom:18px"><h2 style="color:#2E7D32;font-size:1.4rem">Model Question Paper</h2><div class="ml">യൂണിറ്റ് 1 • Of Many Hues (All 3 Parts)</div><div style="font-size:.95rem;color:#555;margin-top:6px">Max Marks: 30 | Time: 45 minutes</div></div><div class="qp-section"><div class="qp-heading">I. Choose the correct answer – 6 × 1 = 6</div><div class="qp-q"><span class="qnum">1.</span> The story "Names and Names" is set in _____.<br>(a) Kerala (b) New Jersey (c) France (d) Japan</div><div class="qp-q"><span class="qnum">2.</span> Who first pronounced Kunhichirutha's name correctly?<br>(a) Kate (b) Ms. Hopkins (c) Prakash (d) Antoinette</div><div class="qp-q"><span class="qnum">3.</span> "The Colours of Earth" was written by _____.<br>(a) Taro Yashima (b) Sarah Pirtle (c) Maya Angelou (d) Kate</div><div class="qp-q"><span class="qnum">4.</span> Chibi was nicknamed so because he was _____.<br>(a) tall (b) tiny (c) loud (d) fast</div><div class="qp-q"><span class="qnum">5.</span> Chibi imitated the cries of _____ at the talent show.<br>(a) dogs (b) crows (c) cats (d) children</div><div class="qp-q"><span class="qnum">6.</span> After the talent show, Chibi was called _____.<br>(a) Slowpoke (b) Crow Boy (c) Tiny Boy (d) Isobe</div></div><div class="qp-section"><div class="qp-heading">II. True or False – 4 × 1 = 4</div><div class="qp-q"><span class="qnum">7.</span> Kate always pronounced Kunhichirutha's name correctly. ( )</div><div class="qp-q"><span class="qnum">8.</span> Antoinette came from Marseilles in France. ( )</div><div class="qp-q"><span class="qnum">9.</span> Mr. Isobe was unkind to Chibi. ( )</div><div class="qp-q"><span class="qnum">10.</span> Chibi walked over the mountain to school for six years. ( )</div></div><div class="qp-section"><div class="qp-heading">III. Fill in the blanks – 4 × 1 = 4</div><div class="qp-q"><span class="qnum">11.</span> Kunhichirutha was named after her great _______.</div><div class="qp-q"><span class="qnum">12.</span> We are made of the _______ of earth.</div><div class="qp-q"><span class="qnum">13.</span> Chibi hid in the _______ on the first day of school.</div><div class="qp-q"><span class="qnum">14.</span> Chibi was honoured for perfect _______.</div></div><div class="qp-section"><div class="qp-heading">IV. Answer briefly – 4 × 2 = 8</div><div class="qp-q"><span class="qnum">15.</span> Why did Kunhichirutha feel happy when Prakash said her name correctly?</div><div class="qp-q"><span class="qnum">16.</span> What colours does the poet mention in "The Colours of Earth"?</div><div class="qp-q"><span class="qnum">17.</span> How did Chibi amuse himself when he was left alone?</div><div class="qp-q"><span class="qnum">18.</span> What is the main message of the story "Crow Boy"?</div></div><div class="qp-section"><div class="qp-heading">V. Answer in detail – 2 × 4 = 8</div><div class="qp-q"><span class="qnum">19.</span> Describe how Kunhichirutha and Antoinette became friends.</div><div class="qp-q"><span class="qnum">20.</span> How did Mr. Isobe change the way the class looked at Chibi?</div></div><button class="reveal-model-btn" style="width:100%;margin-top:10px" onclick="revealModel('qpAnswers',this)">💡 Show Answer Key</button><div class="model-answer-box" id="qpAnswers">1. (b) 2. (c) 3. (b) 4. (b) 5. (b) 6. (b)<br>7. False 8. True 9. False 10. True<br>11. grandmother 12. colours 13. cellar 14. attendance<br>15–20. (Open answers based on the text)</div>`}
+
+/* ---------- UNIT QUESTION PAPER ---------- */
+function renderUnitQP(){document.getElementById('unitQPPaper').innerHTML=`<div class="qp-school">SMART VIDHYA ENGLISH READER</div><div class="qp-title">UNIT QUESTION PAPER — Unit 1: Of Many Hues</div><div class="qp-meta"><span>Class: VI</span><span>Time: 40 minutes</span><span>Max Marks: 20</span></div>
+<div class="qp-act"><div class="qp-act-h">1. Answer any two of the following in a sentence each. (2 × 2 = 4)</div><ul><li>Why did Kate mispronounce Kunhichirutha's name?</li><li>What colours does the speaker see in a friend's hands in the song?</li><li>Why did Chibi hide in the cellar on the first day of school?</li></ul><div class="qp-lines"></div><div class="qp-lines"></div></div>
+<div class="qp-act"><div class="qp-act-h">2. Fill in the blanks with a suitable word from the box. (4 × 1 = 4)</div><div class="word-bank"><span>immigrant</span><span>slowpoke</span><span>dazzling</span><span>relocated</span></div><ul><li>Antoinette's family _______ to New Jersey.</li><li>Everyone called Chibi a _______.</li><li>Kunhichirutha met many other _______ children at school.</li><li>The _______ brown river is described in the song.</li></ul></div>
+<div class="qp-act"><div class="qp-act-h">3. Answer in about 4-5 sentences. (1 × 4 = 4)</div><p>How did Chibi learn to imitate the cries of the crows so perfectly?</p><div class="qp-lines"></div><div class="qp-lines"></div><div class="qp-lines"></div><div class="qp-lines"></div></div>
+<div class="qp-act"><div class="qp-act-h">4. Complete the country–nationality table. (4 × 0.5 = 2)</div><p>France – _______, Germany – _______, Spain – _______, The UAE – _______</p></div>
+<div class="qp-act"><div class="qp-act-h">5. Write a short paragraph (about 6 sentences) on the message: "In diversity there is beauty and there is strength." (1 × 6 = 6)</div><div class="qp-lines"></div><div class="qp-lines"></div><div class="qp-lines"></div><div class="qp-lines"></div><div class="qp-lines"></div><div class="qp-lines"></div></div>
+<div class="qp-footer">*** All the Best ***</div>`}
+
+function printUnitQP(){playSound('click');window.print()}
+function downloadUnitQPasPDF(){
+  playSound('click');
+  const paper = document.getElementById('unitQPPaper');
+  if(!paper){ alert('Question paper not ready.'); return; }
+  if(typeof html2pdf === 'undefined'){
+    alert('PDF library loading... Please try again in a moment, or use Print → Save as PDF.');
+    return;
+  }
+  const opt = {
+    margin: [10, 12, 10, 12],
+    filename: 'Unit1_Of_Many_Hues_Question_Paper.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(paper).save();
+}
+
+/* ---------- ABOUT AUTHORS ---------- */
+function renderBio(){document.getElementById('bioContainer').innerHTML=`
+<div class="bio-card"><div class="bio-photo">🎶</div><h3 style="text-align:center;color:#2E7D32;margin-bottom:10px">Sarah Pirtle</h3>
+<div class="bio-row"><span class="bio-label">Country</span><span>United States of America</span></div>
+<div class="bio-row"><span class="bio-label">Known for</span><span>Folk songs about fairness, kindness and caring for the environment</span></div>
+<div class="bio-row"><span class="bio-label">Also known as</span><span>Writer, musician and teacher; wrote the novel "An Outbreak of Peace"</span></div>
+<div class="bio-row"><span class="bio-label">Wrote</span><span>The Colours of Earth</span></div></div>
+<div class="bio-card"><div class="bio-photo">🖌️</div><h3 style="text-align:center;color:#2E7D32;margin-bottom:10px">Taro Yashima (1908–1994)</h3>
+<div class="bio-row"><span class="bio-label">Country</span><span>Japanese American</span></div>
+<div class="bio-label" style="display:none"></div>
+<div class="bio-row"><span class="bio-label">Known for</span><span>A children's book artist and author, admired for his vibrant illustrations and engaging stories</span></div>
+<div class="bio-row"><span class="bio-label">Belief</span><span>He treasured his interactions with children around the world, calling them his greatest teachers</span></div>
+<div class="bio-row"><span class="bio-label">Wrote</span><span>Crow Boy</span></div></div>`}
+
+/* ---------- THE DOORWAY ---------- */
+function renderDoorway(){document.getElementById('doorwayContainer').innerHTML=`<div class="story-title-wrap"><span class="story-title">🚪 The Doorway</span></div>
+<div class="activity-block"><div class="activity-sub">Look at the picture in your textbook: children of many countries gathered around a globe and a book, talking happily together.</div>
+<div class="qa-line"><div class="q">What are the children doing?</div><div class="a show">They are looking at a globe and a book together, talking and sharing about different places in the world.</div></div>
+<div class="qa-line"><div class="q">Do you think the children are from the same country?</div><div class="a show">No, they seem to be from different countries — their clothes, hair and features look different, showing that people of many backgrounds can be friends.</div></div>
+</div>
+<div class="activity-block"><div class="activity-sub">💬 Think and discuss: When you move to another country, the flow of life changes. What differences might you feel when you move to a new place? Talk about it with your classmates.</div></div>`}
+
+/* ---------- PROGRESS ---------- */
+function renderProgress(){const parts=[['read','📖 Read the Lessons'],['learn','🗂️ Learn Words'],['activities','📝 Activities'],['games','🎮 Games'],['quiz','❓ Quiz'],['vocab','📚 Vocabulary'],['diary','📔 My Little Diary'],['letter','✉️ Letter Box'],['roleplay','🎭 Role Play Zone'],['grammar','✏️ Grammar Quest'],['punctuation','❗ Punctuation'],['wordfun','🔤 Word Fun'],['poster','🪧 Poster & Placard']];
+ let totalCells=0,doneCells=0;let rows='';
+ parts.forEach(p=>{const key=p[0];let doneCount=0;LESSONS.forEach(L=>{totalCells++;if(state.visited[key+'_'+L.id]){doneCount++;doneCells++}});rows+=`<div class="progress-row ${doneCount===LESSONS.length?'done':''}"><span>${p[1]}</span><span>${doneCount} / ${LESSONS.length} parts</span></div>`});
+ const pct=totalCells?Math.round(doneCells/totalCells*100):0;
+ document.getElementById('progressContainer').innerHTML=`<div style="text-align:center;margin-bottom:16px"><h3 style="color:#2E7D32">Overall Completion: ${pct}%</h3></div><div class="progress-big-bar"><div class="progress-big-fill" style="width:${pct}%">${pct}%</div></div>${rows}<div style="text-align:center;margin-top:16px;font-weight:bold;color:#37474F">⭐ Score: ${state.score} &nbsp; 🏆 Stars: ${state.stars}</div>`}
+
+/* ============================================================
+   GAME ENGINE (10 mini games, all driven by the lesson data above)
+   ============================================================ */
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function pickWrongWords(lessonId,correctWord,count){const pool=[];LESSONS.forEach(L=>{(VOCAB_BY_LESSON[L.id]||[]).forEach(v=>{if(v.word!==correctWord)pool.push(v.word)})});return shuffle(pool).slice(0,count)}
+function optionButtonsHTML(opts,correct,onClickFnName,extra){return opts.map(o=>`<button class="option-btn ${extra||''}" onclick="${onClickFnName}(this,'${o.replace(/'/g,"\\'")}','${correct.replace(/'/g,"\\'")}')">${o}</button>`).join('')}
+
+function launchGame(n){const lessonId=state.currentLesson;playSound('click');
+ if(n===1)initGame1(lessonId);else if(n===2)initGame2(lessonId);else if(n===3)initGame3(lessonId);else if(n===4)initGame4(lessonId);else if(n===5)initGame5(lessonId);else if(n===6)initGame6(lessonId);else if(n===7)initGame7(lessonId);else if(n===8)initGame8(lessonId);else if(n===9)initGame9(lessonId);else if(n===10)initGame10(lessonId);
+ showScreen('game'+n+'Screen')}
+
+/* GAME 1: Picture Detective — see emoji, pick the correct word */
+function initGame1(lessonId){const vocab=VOCAB_BY_LESSON[lessonId]||[];const item=vocab[Math.floor(Math.random()*vocab.length)];document.getElementById('g1ImgBox').innerText=item.emoji;const wrongs=pickWrongWords(lessonId,item.word,3);const opts=shuffle([item.word,...wrongs]);document.getElementById('g1OptionsGrid').innerHTML=opts.map(o=>`<button class="option-btn" onclick="g1Check(this,'${o}','${item.word}')">${o}</button>`).join('');document.getElementById('g1Result').innerText=''}
+function g1Check(btn,picked,correct){document.querySelectorAll('#g1OptionsGrid .option-btn').forEach(b=>b.disabled=true);if(picked===correct){btn.classList.add('correct');state.score+=10;state.stars+=1;playSound('correct');document.getElementById('g1Result').innerText='🎉 Correct!'}else{btn.classList.add('wrong');playSound('wrong');document.getElementById('g1Result').innerText='❌ The answer was: '+correct}updateStatsUI();setTimeout(()=>initGame1(state.currentLesson),1400)}
+
+/* GAME 2: Word–Meaning Match */
+function initGame2(lessonId){const vocab=shuffle(VOCAB_BY_LESSON[lessonId]||[]).slice(0,5);window._g2=vocab;window._g2sel=null;const wc=document.getElementById('g2WordsCol'),mc=document.getElementById('g2MeanCol');wc.innerHTML=vocab.map((v,i)=>`<div class="match-item" data-i="${i}" data-side="w" onclick="g2Pick(this)"><div class="text-thumb">${v.word}</div></div>`).join('');const shuffledMean=shuffle(vocab.map((v,i)=>i));mc.innerHTML=shuffledMean.map(i=>`<div class="match-item ml" data-i="${i}" data-side="m" onclick="g2Pick(this)"><div class="text-thumb ml">${vocab[i].meaning}</div></div>`).join('');document.getElementById('g2Result').innerText=''}
+function g2Pick(el){if(el.classList.contains('matched'))return;if(!window._g2sel){window._g2sel=el;el.classList.add('selected');playSound('click');return}if(window._g2sel===el){el.classList.remove('selected');window._g2sel=null;return}const a=window._g2sel,b=el;if(a.dataset.side===b.dataset.side){a.classList.remove('selected');window._g2sel=b;b.classList.add('selected');return}if(a.dataset.i===b.dataset.i){a.classList.add('matched');b.classList.add('matched');a.classList.remove('selected');state.score+=10;state.stars+=1;playSound('correct');document.getElementById('g2Result').innerText='🎉 Great match!';updateStatsUI();window._g2sel=null;const remain=document.querySelectorAll('#game2Screen .match-item:not(.matched)');if(remain.length===0){setTimeout(showRewardModal,500)}}else{a.classList.add('wrong');b.classList.add('wrong');playSound('wrong');setTimeout(()=>{a.classList.remove('wrong','selected');b.classList.remove('wrong')},600);window._g2sel=null}}
+
+/* GAME 3: Missing Letter Hunter */
+function initGame3(lessonId){const vocab=VOCAB_BY_LESSON[lessonId]||[];const item=vocab[Math.floor(Math.random()*vocab.length)];window._g3=item;document.getElementById('g3ImgBox').innerText=item.emoji;document.getElementById('g3WordDisplay').innerText=item.missingDisplay;const letters=shuffle([item.missingLetter,...shuffle('aeioubcdgmnrst'.split('')).filter(l=>l!==item.missingLetter).slice(0,4)]);document.getElementById('g3LettersGrid').innerHTML=letters.map(l=>`<button class="letter-btn" onclick="g3Check(this,'${l}')">${l}</button>`).join('');document.getElementById('g3Result').innerText=''}
+function g3Check(btn,letter){const item=window._g3;document.querySelectorAll('#g3LettersGrid .letter-btn').forEach(b=>b.disabled=true);if(letter===item.missingLetter){btn.style.background='#C8E6C9';document.getElementById('g3WordDisplay').innerText=item.word;state.score+=10;state.stars+=1;playSound('correct');document.getElementById('g3Result').innerText='🎉 Correct! The word is "'+item.word+'"'}else{btn.style.background='#FFCDD2';playSound('wrong');document.getElementById('g3Result').innerText='❌ Correct letter was: '+item.missingLetter}updateStatsUI();setTimeout(()=>initGame3(state.currentLesson),1500)}
+
+/* GAME 4: Word Builder (arrange scrambled letters) */
+function initGame4(lessonId){const vocab=VOCAB_BY_LESSON[lessonId]||[];const item=vocab[Math.floor(Math.random()*vocab.length)];window._g4={item,answer:[]};document.getElementById('g4ImgBox').innerText=item.emoji;document.getElementById('g4Slots').innerHTML=item.letters.map(()=>`<div class="letter-slot"></div>`).join('');document.getElementById('g4Tiles').innerHTML=shuffle(item.letters).map((l,i)=>`<button class="tile-btn" data-l="${l}" onclick="g4Tap(this)">${l}</button>`).join('');document.getElementById('g4Result').innerText=''}
+function g4Tap(btn){if(btn.disabled)return;const st=window._g4;st.answer.push(btn.dataset.l);btn.disabled=true;btn.style.visibility='hidden';const slots=document.querySelectorAll('#g4Slots .letter-slot');slots[st.answer.length-1].innerText=btn.dataset.l;if(st.answer.length===st.item.letters.length){const built=st.answer.join('');if(built===st.item.word){document.getElementById('g4Result').innerText='🎉 You built: '+built;state.score+=15;state.stars+=1;playSound('correct')}else{document.getElementById('g4Result').innerText='❌ Try again! The word was: '+st.item.word;playSound('wrong')}updateStatsUI();setTimeout(()=>initGame4(state.currentLesson),1600)}}
+
+/* GAME 5: Listening Challenge — hear the word, choose the correct spelling */
+function initGame5(lessonId){const vocab=VOCAB_BY_LESSON[lessonId]||[];const item=vocab[Math.floor(Math.random()*vocab.length)];window._g5=item;const wrongs=pickWrongWords(lessonId,item.word,3);const opts=shuffle([item.word,...wrongs]);document.getElementById('g5OptionsGrid').innerHTML=opts.map(o=>`<button class="option-btn" onclick="g5Check(this,'${o}')">${o}</button>`).join('');document.getElementById('g5Result').innerText='';document.getElementById('g5ReplayBtn').onclick=()=>speakText(item.word)}
+function g5Check(btn,picked){const item=window._g5;document.querySelectorAll('#g5OptionsGrid .option-btn').forEach(b=>b.disabled=true);if(picked===item.word){btn.classList.add('correct');state.score+=10;state.stars+=1;playSound('correct');document.getElementById('g5Result').innerText='🎉 Correct!'}else{btn.classList.add('wrong');playSound('wrong');document.getElementById('g5Result').innerText='❌ It was: '+item.word}updateStatsUI();setTimeout(()=>initGame5(state.currentLesson),1500)}
+
+/* GAME 6: Meaning Master — see Malayalam meaning, pick English word */
+function initGame6(lessonId){const vocab=VOCAB_BY_LESSON[lessonId]||[];const item=vocab[Math.floor(Math.random()*vocab.length)];document.getElementById('g6MeaningBox').innerText=item.meaning;const wrongs=pickWrongWords(lessonId,item.word,3);const opts=shuffle([item.word,...wrongs]);document.getElementById('g6OptionsGrid').innerHTML=opts.map(o=>`<button class="option-btn" onclick="g6Check(this,'${o}','${item.word}')">${o}</button>`).join('');document.getElementById('g6Result').innerText=''}
+function g6Check(btn,picked,correct){document.querySelectorAll('#g6OptionsGrid .option-btn').forEach(b=>b.disabled=true);if(picked===correct){btn.classList.add('correct');state.score+=10;state.stars+=1;playSound('correct');document.getElementById('g6Result').innerText='🎉 Correct!'}else{btn.classList.add('wrong');playSound('wrong');document.getElementById('g6Result').innerText='❌ It was: '+correct}updateStatsUI();setTimeout(()=>initGame6(state.currentLesson),1400)}
+
+/* GAME 7: Sequence the Events */
+function initGame7(lessonId){const events=shuffle(SEQ_EVENTS_BY_LESSON[lessonId]||[]);window._g7=events;window._g7picked=[];const list=document.getElementById('g7SeqList');list.innerHTML=events.map((e,i)=>`<div class="seq-item" data-order="${e.order}" onclick="g7Pick(this)"><div class="seq-num">?</div><div>${e.text}</div></div>`).join('');document.getElementById('g7Result').innerText=''}
+function g7Pick(el){if(el.classList.contains('selected'))return;window._g7picked.push(el);el.classList.add('selected');el.querySelector('.seq-num').innerText=window._g7picked.length}
+function checkSequence(){const picked=window._g7picked||[];const items=document.querySelectorAll('#g7SeqList .seq-item');if(picked.length!==items.length){document.getElementById('g7Result').innerText='👉 Click all the events in the order they happened.';return}let correct=true;picked.forEach((el,i)=>{if(parseInt(el.dataset.order)!==i+1){correct=false;el.style.borderColor='#F44336'}else{el.classList.add('correct')}});if(correct){document.getElementById('g7Result').innerText='🎉 Perfect order!';state.score+=20;state.stars+=2;playSound('fanfare')}else{document.getElementById('g7Result').innerText='❌ Not quite right. Try again!';playSound('wrong')}updateStatsUI();if(correct){setTimeout(()=>initGame7(state.currentLesson),1600)}}
+
+/* GAME 8: Who Said / Did It? */
+function initGame8(lessonId){const arr=CHAR_QUOTES_BY_LESSON[lessonId]||[];const item=arr[Math.floor(Math.random()*arr.length)];document.getElementById('g8QuoteBox').innerHTML=item.quote;const opts=shuffle(item.opts);document.getElementById('g8OptionsGrid').innerHTML=opts.map(o=>`<button class="option-btn" onclick="g8Check(this,'${o.replace(/'/g,"\\'")}','${item.ans.replace(/'/g,"\\'")}')">${o}</button>`).join('');document.getElementById('g8Result').innerText=''}
+function g8Check(btn,picked,correct){document.querySelectorAll('#g8OptionsGrid .option-btn').forEach(b=>b.disabled=true);if(picked===correct){btn.classList.add('correct');state.score+=10;state.stars+=1;playSound('correct');document.getElementById('g8Result').innerText='🎉 Correct!'}else{btn.classList.add('wrong');playSound('wrong');document.getElementById('g8Result').innerText='❌ It was: '+correct}updateStatsUI();setTimeout(()=>initGame8(state.currentLesson),1500)}
+
+/* GAME 9: Synonym / Antonym */
+function initGame9(lessonId){const arr=SYN_ANT_BY_LESSON[lessonId]||[];const item=arr[Math.floor(Math.random()*arr.length)];document.getElementById('g9PromptBox').innerText=item.prompt;const opts=shuffle(item.opts);document.getElementById('g9OptionsGrid').innerHTML=opts.map(o=>`<button class="option-btn" onclick="g9Check(this,'${o}','${item.ans}')">${o}</button>`).join('');document.getElementById('g9Result').innerText=''}
+function g9Check(btn,picked,correct){document.querySelectorAll('#g9OptionsGrid .option-btn').forEach(b=>b.disabled=true);if(picked===correct){btn.classList.add('correct');state.score+=10;state.stars+=1;playSound('correct');document.getElementById('g9Result').innerText='🎉 Correct!'}else{btn.classList.add('wrong');playSound('wrong');document.getElementById('g9Result').innerText='❌ It was: '+correct}updateStatsUI();setTimeout(()=>initGame9(state.currentLesson),1400)}
+
+/* GAME 10: Sentence Completer */
+function initGame10(lessonId){const arr=SENT_COMP_BY_LESSON[lessonId]||[];const item=arr[Math.floor(Math.random()*arr.length)];document.getElementById('g10SentBox').innerText=item.sent;const opts=shuffle(item.opts);document.getElementById('g10OptionsGrid').innerHTML=opts.map(o=>`<button class="option-btn" onclick="g10Check(this,'${o}','${item.ans}')">${o}</button>`).join('');document.getElementById('g10Result').innerText=''}
+function g10Check(btn,picked,correct){document.querySelectorAll('#g10OptionsGrid .option-btn').forEach(b=>b.disabled=true);if(picked===correct){btn.classList.add('correct');state.score+=10;state.stars+=1;playSound('correct');document.getElementById('g10Result').innerText='🎉 Correct!'}else{btn.classList.add('wrong');playSound('wrong');document.getElementById('g10Result').innerText='❌ It was: '+correct}updateStatsUI();setTimeout(()=>initGame10(state.currentLesson),1400)}
+
+/* ============================================================
+   START UP
+   ============================================================ */
+window.onload=function(){updateStatsUI();unlockTtsAudio();if('speechSynthesis'in window){window.speechSynthesis.getVoices();window.speechSynthesis.onvoiceschanged=pickVoice}};
+document.addEventListener('click',unlockTtsAudio,{once:true});
+document.addEventListener('touchstart',unlockTtsAudio,{once:true});
+</script>
+</body>
+</html>
