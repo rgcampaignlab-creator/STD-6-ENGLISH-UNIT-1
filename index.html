@@ -200,7 +200,7 @@ let state={score:0,lives:5,stars:0,audioEnabled:true,currentSection:null,current
 function initAudio(){if(!audioCtx){try{audioCtx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}}
 function playSound(type){if(!state.audioEnabled)return;initAudio();if(!audioCtx)return;const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();osc.connect(gain);gain.connect(audioCtx.destination);const now=audioCtx.currentTime;if(type==='correct'){osc.type='sine';osc.frequency.setValueAtTime(523.25,now);osc.frequency.exponentialRampToValueAtTime(783.99,now+.3);gain.gain.setValueAtTime(.3,now);gain.gain.exponentialRampToValueAtTime(.01,now+.4);osc.start(now);osc.stop(now+.4)}else if(type==='wrong'){osc.type='sawtooth';osc.frequency.setValueAtTime(220,now);osc.frequency.linearRampToValueAtTime(130,now+.3);gain.gain.setValueAtTime(.3,now);gain.gain.exponentialRampToValueAtTime(.01,now+.35);osc.start(now);osc.stop(now+.35)}else if(type==='click'){osc.type='triangle';osc.frequency.setValueAtTime(400,now);gain.gain.setValueAtTime(.15,now);gain.gain.exponentialRampToValueAtTime(.01,now+.08);osc.start(now);osc.stop(now+.08)}else if(type==='fanfare'){[523.25,659.25,783.99,1046.5].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.connect(g);g.connect(audioCtx.destination);o.frequency.setValueAtTime(f,now+i*.12);g.gain.setValueAtTime(.2,now+i*.12);g.gain.exponentialRampToValueAtTime(.01,now+i*.12+.3);o.start(now+i*.12);o.stop(now+i*.12+.3)})}}
 
-function pickVoice(){if(!('speechSynthesis'in window))return null;const voices=window.speechSynthesis.getVoices();if(!voices.length)return null;chosenVoice=voices.find(v=>v.lang==='en-IN')||voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang&&v.lang.startsWith('en'))||voices[0];return chosenVoice}
+function pickVoice(){if(!('speechSynthesis'in window))return null;const voices=window.speechSynthesis.getVoices();if(!voices.length)return null;const isClear=v=>/Google|Natural|Neural|Enhanced|Premium|Online/i.test(v.name);chosenVoice=voices.find(v=>v.lang==='en-IN'&&isClear(v))||voices.find(v=>v.lang==='en-GB'&&isClear(v))||voices.find(v=>isClear(v)&&v.lang&&v.lang.startsWith('en'))||voices.find(v=>v.lang==='en-IN')||voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang&&v.lang.startsWith('en'))||voices[0];return chosenVoice}
 
 function unlockTtsAudio(){try{initAudio();if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume()}catch(e){}try{if('speechSynthesis'in window){const u=new SpeechSynthesisUtterance('');u.volume=0;window.speechSynthesis.speak(u);window.speechSynthesis.cancel()}}catch(e){}}
 
@@ -210,7 +210,9 @@ function stopSpeak(){speakGen++;if('speechSynthesis'in window){try{window.speech
    Works fully offline inside a packaged app / webview. */
 function speakText(text,onend){
   const myGen=++speakGen;
-  const done=function(){if(myGen===speakGen&&onend)onend()};
+  let keepAliveTimer=null;
+  const clearKeepAlive=function(){if(keepAliveTimer){clearInterval(keepAliveTimer);keepAliveTimer=null}};
+  const done=function(){clearKeepAlive();if(myGen===speakGen&&onend)onend()};
   if(!state.audioEnabled){done();return}
   text=(text||'').toString().trim();
   if(!text){done();return}
@@ -218,10 +220,11 @@ function speakText(text,onend){
   try{
     window.speechSynthesis.cancel();
     const u=new SpeechSynthesisUtterance(text);
-    u.lang='en-IN';u.rate=.94;u.pitch=1.02;
+    u.lang='en-IN';u.rate=.86;u.pitch=1;u.volume=1;
     const v=chosenVoice||pickVoice();if(v)u.voice=v;
-    u.onend=function(){if(myGen===speakGen&&onend)onend()};
-    u.onerror=function(){if(myGen===speakGen&&onend)onend()};
+    u.onstart=function(){keepAliveTimer=setInterval(function(){if(myGen!==speakGen){clearKeepAlive();return}if(window.speechSynthesis.speaking){window.speechSynthesis.pause();window.speechSynthesis.resume()}},4000)};
+    u.onend=function(){if(myGen===speakGen){clearKeepAlive();if(onend)onend()}};
+    u.onerror=function(){if(myGen===speakGen){clearKeepAlive();if(onend)onend()}};
     window.speechSynthesis.speak(u);
   }catch(e){done()}
 }
